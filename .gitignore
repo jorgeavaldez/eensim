@@ -1,0 +1,6 @@
+.vagrant
+
+obj/*.o
+bin/*
+src/*.gch
+src/graph/*.gch
