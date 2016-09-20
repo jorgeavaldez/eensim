@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
     apt-get upgrade
     apt-get install -y build-essential git
     cd /vagrant
-    make bin
-    make obj
+    mkdir bin
+    mkdir obj
   SHELL
 end
