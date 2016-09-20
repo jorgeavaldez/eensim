@@ -3,9 +3,9 @@ This is the simulation directory for our Networks project.
 
 ## Directories
 This repository consists of three directories:
-  - bin: holds the final compiled binaries to run any simulations
-  - obj: holds the compiled .o files
-  - src: holds the source files for the project
+  - `bin`: holds the final compiled binaries to run any simulations
+  - `obj`: holds the compiled .o files
+  - `src`: holds the source files for the project
 
 ## Building
 **With Vagrant**
