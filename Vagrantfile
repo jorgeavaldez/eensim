@@ -8,5 +8,8 @@ Vagrant.configure("2") do |config|
     apt-get update
     apt-get upgrade
     apt-get install -y build-essential git
+    cd /vagrant
+    make bin
+    make obj
   SHELL
 end
