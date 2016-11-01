@@ -1,10 +1,6 @@
 #ifndef _PRIMS_HPP
 #define _PRIMS_HPP
 
-#include <string>
-#include <vector>
+public primsAlgo(Graph G);
 
-class Prims{
-    public Prims();
-    
-};
+#endif
