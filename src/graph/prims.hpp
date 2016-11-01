@@ -8,3 +8,5 @@ class Prims{
     public Prims();
     
 };
+
+#endif // _PRIMS_HPP
