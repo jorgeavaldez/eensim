@@ -5,6 +5,9 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64"
 
   config.vm.provision "shell", inline: <<-SHELL
+    cd /vagrant
+    mkdir bin
+    mkdir obj
     apt-get update
     apt-get upgrade
     echo "Installing the build essentials and git..."
