@@ -52,7 +52,7 @@ void Graph::dijkstra(int s, int d) {
         {
             cout<<i<<": ";
             for(int j=0;j<path[i].size();j++)
-            cout<<path[i][j]<<"-> ";
+                cout<<path[i][j]<<"-> ";
             cout<<endl;
         }
 }
