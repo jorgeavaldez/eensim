@@ -7,5 +7,5 @@
 primsAlgo(Graph G)
 {
     bool visited[G.getVertices.size() + 1];
-    
+
 }
