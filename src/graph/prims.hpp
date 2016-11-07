@@ -3,4 +3,12 @@
 
 public primsAlgo(Graph G);
 
-#endif
+#include <string>
+#include <vector>
+
+class Prims{
+    public Prims();
+    
+};
+
+#endif // _PRIMS_HPP
