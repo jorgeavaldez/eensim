@@ -6,6 +6,7 @@ using namespace std;
 Graph::Graph(int v) {
     V = v;
     adj = new list < Node > [V + 1];
+    path = new vector<int>[V+1]; // path list
 }
 
 void Graph::addEdge(int v1, int v2, int w) {
@@ -24,7 +25,7 @@ void Graph::dijkstra(int s, int d) {
     }
 
     dist[s] = 0;
-
+     
     for (int i = 1; i <= d; i++) {
         int u = min_dist(dist, visited, d);
         visited[u] = true;
@@ -36,6 +37,8 @@ void Graph::dijkstra(int s, int d) {
 
             if (!visited[v] && dist[u] + w < dist[v]) {
                 dist[v] = dist[u] + w;
+                path[v] = path[u];
+                path[v].insert(path[v].begin(),u);
             }
         }
     }
@@ -45,6 +48,13 @@ void Graph::dijkstra(int s, int d) {
 
     for (int i = 1; i <= V; i++)
         cout << i << "\t\t" << dist[i] << "\n";
+    for(int i=1;i<= V;i++)
+        {
+            cout<<i<<": ";
+            for(int j=0;j<path[i].size();j++)
+            cout<<path[i][j]<<"-> ";
+            cout<<endl;
+        }
 }
 int Graph::min_dist(int dist[], bool visited[], int len) {
     int min = INT_MAX, min_index = 1;
