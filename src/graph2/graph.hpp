@@ -8,25 +8,26 @@
 
 using namespace std;
 
-struct Node {
-  public:
-    int v;
-    int w;
-    Node(int v1, int w1) {
+namespace fuck{
+  struct Node {
+    public:
+      int v;
+      int w;
+      Node(int v1, int w1) {
         v = v1;
         w = w1;
-    }
-};
+      }
+  };
 
-class Graph {
+  class Graph {
     int V;
     list < Node > * adj;
-  public:
-    Graph(int V);
-    void addEdge(int v1, int v2, int w);
-    void dijkstra(int s, int v);
-    int min_dist(int dist[], bool visited[], int d);
-
-};
+    public:
+      Graph(int V);
+      void addEdge(int v1, int v2, int w);
+      void dijkstra(int s, int v);
+      int min_dist(int dist[], bool visited[], int d);
+  };
+}
 
 #endif
