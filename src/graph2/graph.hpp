@@ -5,7 +5,7 @@
 #include <list>
 #include <climits>
 #include <cstdlib>
-
+#include <vector>
 using namespace std;
 
 struct Node {
@@ -21,6 +21,7 @@ struct Node {
 class Graph {
     int V;
     list < Node > * adj;
+    vector <int> *path; // path list of lists
   public:
     Graph(int V);
     void addEdge(int v1, int v2, int w);
