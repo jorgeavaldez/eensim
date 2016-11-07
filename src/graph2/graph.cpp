@@ -16,17 +16,17 @@ namespace fuck{
       adj[v2].push_back(n2);
   }
   void Graph::dijkstra(int s, int d) {
-      int dist[d + 1];
-      bool visited[d + 1];
+      int dist[d];
+      bool visited[d];
 
-      for (int i = 1; i <= d; i++) {
+      for (int i = 0; i < d; i++) {
           dist[i] = INT_MAX;
           visited[i] = 0;
       }
 
       dist[s] = 0;
 
-      for (int i = 1; i <= d; i++) {
+      for (int i = 0; i < d; i++) {
           int u = min_dist(dist, visited, d);
           visited[u] = true;
           list < Node > ::iterator ob;
@@ -44,13 +44,13 @@ namespace fuck{
       //Printing the distances
       cout << "Vertex Distance from Source\n";
 
-      for (int i = 1; i <= V; i++)
+      for (int i = 0; i < V; i++)
           cout << i << "\t\t" << dist[i] << "\n";
   }
   int Graph::min_dist(int dist[], bool visited[], int len) {
       int min = INT_MAX, min_index = 1;
 
-      for (int i = 1; i <= len; i++) {
+      for (int i = 0; i < len; i++) {
           if (!visited[i] && dist[i] < min) {
               min = dist[i];
               min_index = i;

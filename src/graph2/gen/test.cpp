@@ -17,11 +17,11 @@ bool isParent(char c){
 
 int main() {
 
-  // Graph bar(10);
+  // Graph bar(5);
   boost::minstd_rand gen;
 
-  int v = 10;
-  double p = 0.65;
+  int v = 5;
+  double p = 0.8;
 
   std::ofstream fuckthis;
   std::stringstream foo;
@@ -35,7 +35,7 @@ int main() {
   std::copy(es.first, es.second,
     std::ostream_iterator<boostGraph::edge_descriptor>{foo, "\n"});
 
-  fuck::Graph bar(10);
+  fuck::Graph bar(5);
 
   std::string line;
   while(std::getline(foo, line)){
@@ -54,10 +54,10 @@ int main() {
     //   cout << *beg << "\n";
     // }
     std::cout << val1 << " " << val2 << std::endl;
-    bar.addEdge(val1, val2, 10);
+    bar.addEdge(val1, val2, 1);
   }
 
-  bar.dijkstra(1, 11);
+  bar.dijkstra(0, 5);
 
   fuckthis.close();
   return 0;
