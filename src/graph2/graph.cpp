@@ -89,6 +89,7 @@ void Graph::genGraph(float p){
     ++beg;
     vert2 = std::atoi((*beg).c_str());
     weight = dist(rng);
+    std::cout << "Vert1: " << vert1 << ", Vert 2: " << vert2 << ", Weight: "<< weight << std::endl;
     this->addEdge(vert1, vert2, weight);
   }
 
