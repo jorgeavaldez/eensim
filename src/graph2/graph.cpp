@@ -1,9 +1,9 @@
 #include "graph.hpp"
 
-
 Graph::Graph(int v) {
     V = v;
     adj = new std::list < Node > [V + 1];
+    path = new std::vector<int>[V+1]; // path list
 }
 
 void Graph::addEdge(int v1, int v2, int w) {
@@ -21,7 +21,8 @@ void Graph::dijkstra(int s, int d) {
         visited[i] = 0;
     }
 
-    dist[s] = 0;
+ 
+    dist[s] = 0;    
 
     for (int i = 0; i < d; i++) {
         int u = min_dist(dist, visited, d);
@@ -34,6 +35,8 @@ void Graph::dijkstra(int s, int d) {
 
             if (!visited[v] && dist[u] + w < dist[v]) {
                 dist[v] = dist[u] + w;
+                path[v] = path[u];
+                path[v].insert(path[v].begin(),u);
             }
         }
     }
@@ -44,6 +47,9 @@ void Graph::dijkstra(int s, int d) {
     for (int i = 0; i < V; i++)
         std::cout << i << "\t\t" << dist[i] << "\n";
 }
+
+//Takes the inclusive set of nodes between the source and destination as inputs
+//Len is the size of that set
 int Graph::min_dist(int dist[], bool visited[], int len) {
     int min = INT_MAX, min_index = 1;
 
@@ -53,7 +59,8 @@ int Graph::min_dist(int dist[], bool visited[], int len) {
             min_index = i;
         }
     }
-
+    
+//    cout << "Minmum distance from" << endl; 
     return min_index;
 }
 
@@ -92,5 +99,4 @@ void Graph::genGraph(float p){
     std::cout << "Vert1: " << vert1 << ", Vert 2: " << vert2 << ", Weight: "<< weight << std::endl;
     this->addEdge(vert1, vert2, weight);
   }
-
 }

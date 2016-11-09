@@ -39,6 +39,8 @@ struct Node {
 class Graph {
   int V;
   std::list < Node > * adj;
+  std::vector <int> *path; // path list of lists
+
   public:
     Graph(int V);
     void addEdge(int v1, int v2, int w);
