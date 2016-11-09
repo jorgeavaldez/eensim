@@ -43,13 +43,43 @@ int main() {
   //Print # of edges
   printf("# edges: %d\n", Net->GetEdges());
   
+  //Jorge's stuff
+  //Make a graph
+  //pick 2 random nodes on the graph
+  //bfstree from start to end
+  //print the every path
+  //PNGRaph gout = TSnap::GetBfsTree(Net, 
+  std::cout << "JORGE'S STUFF" << std::endl;
+  PNGraph graph = TSnap::GetBfsTree(Net, Net->BegNI().GetId(),true, false);
+  //TBreathFS<PNGraph> BFS(graph);
+  //BFS.DoBfs(Net->BegNI().GetId(), true, false);
+  TIntPrV aVector;
+  std::cout << "TEST HOP PRINTING" << std::endl;
+  std::cout << TSnap::GetNodesAtHops(graph, graph->BegNI().GetId(), aVector, false) << std::endl;
+  for(auto begin = aVector.BegI(); begin != aVector.EndI(); begin++)
+  { 
+    std::cout << begin->GetVal1() << " " << begin->GetVal2() << std::endl;
+  }
+  std::cout << "DID IT WORK?" << std::endl;
+
+
+  for(TNGraph::TNodeI nodeIter = graph->BegNI(); nodeIter < graph->EndNI(); nodeIter++){
+	TInt id =  nodeIter.GetId();
+        std::cout << "Node " << id;
+  }
+   	
+
+
+  std::cout << "END OF JORGE'S STUFF" << std::endl;
+
+
   //Get the shortest #of hops from beginning to end
   //First create the TBreathFs object
   //honestly this part is kinda broken
-  PNGraph gout = TSnap::GetBfsTree(Net, Net->BegNI().GetId(), false, false);
+  PNGraph gout = TSnap::GetBfsTree(Net, Net->BegNI().GetId(), true, false);
   // gout.GetHops(0,1);   
   TBreathFS<PNGraph> BFS(gout);
-  BFS.DoBfs(Net->BegNI().GetId(), false, false);
+  BFS.DoBfs(Net->BegNI().GetId(), true, false);
 
   //this part is important  
   auto endNode = Net->EndNI()--;

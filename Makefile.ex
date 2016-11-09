@@ -3,6 +3,6 @@
 
 ## Main application file
 
-MAIN = src/andrew src/noah 
-DEPH = 
-DEPCPP = 
+MAIN = src/noah
+DEPH =
+DEPCPP =
