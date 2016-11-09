@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
     unzip Snap-3.0.zip
     cd /vagrant/Snap-3.0
     make all
-    cd examples
+    cd /vagrant/Snap-3.0/examples
     git clone https://github.com/jorgeavaldez/eensim.git
 
   SHELL
