@@ -3,5 +3,5 @@
 
 ## Main application file
 MAIN = src/andrew
-DEPH =
-DEPCPP =
+DEPH = src/Network.hpp
+DEPCPP = src/Network.cpp
