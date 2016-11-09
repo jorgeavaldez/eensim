@@ -2,6 +2,6 @@
 #	configuration variables for the example
 
 ## Main application file
-MAIN = src/test
-DEPH = 
+MAIN = src/andrew
+DEPH =
 DEPCPP =
