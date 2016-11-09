@@ -6,6 +6,6 @@
 #		all (default), clean
 #
 
-include ../../Makefile.config
+include Makefile.config
 include Makefile.ex
-include ../Makefile.exmain
+include Makefile.exmain
