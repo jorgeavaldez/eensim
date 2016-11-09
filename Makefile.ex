@@ -3,6 +3,6 @@
 
 ## Main application file
 
-MAIN = src/noah
-DEPH =
-DEPCPP =
+MAIN = src/andrew
+DEPH = src/Network.hpp
+DEPCPP = src/Network.cpp
