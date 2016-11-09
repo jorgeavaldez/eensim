@@ -3,5 +3,5 @@
 
 ## Main application file
 MAIN = src/test
-DEPH =
+DEPH = 
 DEPCPP =
