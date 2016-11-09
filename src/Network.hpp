@@ -28,13 +28,15 @@ class Network{
 
     void addVert(int v);
 
-    void makeGviz(std::string fName, std::string gName);
+    //use only with my fork of snap
+    void makeGviz(std::string fName, std::string gName, bool weights=true);
 
     Network getBFS(int start);
-    // Network getShortestPath(int src, int dst);
 
     void printEdges();
     void printVerts();
+
+    // Network getAStar(int src, int dst);
 };
 
 #endif

@@ -15,21 +15,14 @@ Vagrant.configure("2") do |config|
     mkdir obj
     apt-get update
     apt-get upgrade
-    echo "Installing the build essentials and git..."
-    apt-get install -y build-essential git
-    echo "Installing the Boost libraries..."
-    apt-get install -y libboost-all-dev
-    echo "Installing optional Snap dependencies"
-    apt-get install -y gnuplot graphviz
-    echo "Installing unzip"
-    apt-get install unzip
-
+    echo "Installing the stuff..."
+    apt-get install -y build-essential git libboost-all-dev gnuplot graphviz unzip
     cd /
-    wget http://snap.stanford.edu/releases/Snap-3.0.zip
+    wget https://github.com/dacoconuttman/snap/archive/master.zip
+    mv master.zip Snap-3.0.zip
     unzip Snap-3.0.zip
     cd /Snap-3.0
     make all
-
     cd /vagrant
 
   SHELL

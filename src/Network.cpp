@@ -90,11 +90,14 @@ void Network::addVert(int v){
   this->Net->AddNode(v);
 }
 
-void Network::makeGviz(std::string fName, std::string gName = ""){
+void Network::makeGviz(std::string fName, std::string gName = "", bool weights){
   fName = fName + ".gif";
   TStr file(fName.c_str());
   TStr graph(gName.c_str());
-  TSnap::DrawGViz(this->Net, TGVizLayout(0), file, graph, false);
+  if(weights)
+    TSnap::DrawGViz2(this->Net, TGVizLayout(0), file, graph, true, true);
+  else
+    TSnap::DrawGViz(this->Net, TGVizLayout(0), file, graph, true);
 }
 
 Network Network::getBFS(int start){
