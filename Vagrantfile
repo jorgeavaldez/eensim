@@ -24,12 +24,13 @@ Vagrant.configure("2") do |config|
     echo "Installing unzip"
     apt-get install unzip
 
+    cd /
     wget http://snap.stanford.edu/releases/Snap-3.0.zip
     unzip Snap-3.0.zip
-    cd /vagrant/Snap-3.0
+    cd /Snap-3.0
     make all
-    cd /vagrant/Snap-3.0/examples
-    git clone https://github.com/jorgeavaldez/eensim.git
+
+    cd /vagrant
 
   SHELL
 end
