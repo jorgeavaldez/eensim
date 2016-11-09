@@ -1,22 +1,11 @@
-NAME = eensim
+#
+#	Makefile for this SNAP example
+#	- modify Makefile.ex when creating a new SNAP example
+#
+#	implements:
+#		all (default), clean
+#
 
-CC=g++
-CXXFLAGS=--std=c++11 -o
-HFLAGS=--std=c++11 -c
-
-SRCDIR = ./src/
-ODIR = ./obj/
-BINDIR = ./bin/
-
-GRAPHOBJS = $(addprefix $(ODIR), graph.o)
-GRAPHOBJSRC = $(addprefix $(SRCDIR)/graph/, graph.cpp)
-
-SIMSRC = $(addprefix $(SRCDIR), main.cpp)
-
-BINNAME = $(addprefix $(BINDIR), $(NAME))
-
-all : $(SIMSRC) $(GRAPHOBJS)
-	$(CC) $(CXXFLAGS) $(BINNAME) $(SIMSRC) $(GRAPHOBJS)
-
-$(GRAPHOBJS) : $(GRAPHDOBJSRC)
-	$(CC) $(HFLAGS) $(GRAPHOBJSRC) -o $@ $<
+include ../../Makefile.config
+include Makefile.ex
+include ../Makefile.exmain
