@@ -147,10 +147,10 @@ void Network::printVerts(){
     printf("id: %d, degree: %d \n", NI.GetId(), NI.GetOutDeg(), NI.GetInDeg());
 }
 
-Network Network::getShortestPath(int src, int dst){
-  Network tempnet;
-  //todo
-}
+// Network Network::getShortestPath(int src, int dst){
+//   Network tempnet;
+//   //todo
+// }
 
 int Network::randVert(){
   return Net->GetRndNId();

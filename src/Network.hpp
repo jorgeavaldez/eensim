@@ -9,7 +9,7 @@
 #include <vector>
 #include <tuple>
 #include <map>
-#include <priority_queue>
+#include <queue>
 
 class Network{
 
@@ -87,11 +87,11 @@ class Network{
     //creates a breadth-first-search tree from a start vert
     Network getBFS(int start);
     //gets number of hops from vert src to vert dst
-    int getHops(Network bfsTree);
+    // int getHops(Network bfsTree); //todo
     //creates a shortest path with Dijkstra's between two
-    Network getShortestPath(int src, int dst);
+    // Network getShortestPath(int src, int dst); //todo
     //gets the length of a path from vert src to vert dst
-    int getPathLen(int src, int dst);
+    // int getPathLen(int src, int dst); //todo
 
 
     //Saves a dot representation of the network and renders gif image
