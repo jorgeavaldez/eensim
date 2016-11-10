@@ -20,11 +20,12 @@ class FlowFactory {
 
     Flow getFlow(int rTime, int nPackets);
 
-    std::vector<Flow> getFlowList(int rTimeUB = 0, int nPacketUB = 10, int nFlows = 10000);
+    std::vector<Flow> getFlowList(int rTimeUB = 0, int nPacketUB = 10,
+      int nFlows = 10000);
 
   private:
     Flow initializeFlow(int rTime, int nPackets);
-    std::mt19937 rng;
+    std::mt19937 rngeesus;
 };
 
 #endif //_FLOWFACTORY_HPP
