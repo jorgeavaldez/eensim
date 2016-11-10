@@ -8,6 +8,8 @@
 #include <iostream>
 #include <vector>
 #include <tuple>
+#include <map>
+#include <priority_queue>
 
 class Network{
 
@@ -36,6 +38,8 @@ class Network{
     void labelEdge(int src, int dst, int w);
     //gets weight of edge
     int getWeight(int src, int dst);
+    //gets random edge
+    std::tuple<int, int, int> randEdge();
 
 
     /*
@@ -46,7 +50,10 @@ class Network{
      void addVert(int v);
      //gives a vector of all the verts connected to v
      std::vector<int> getConnectedVerts(int v);
-     //todo: getDeg()
+     //gives the degree of a vert
+     int getDeg(int v);
+     //gives random vert
+     int randVert();
 
 
     /*
@@ -80,11 +87,11 @@ class Network{
     //creates a breadth-first-search tree from a start vert
     Network getBFS(int start);
     //gets number of hops from vert src to vert dst
-    //todo: int getHops()
+    int getHops(Network bfsTree);
     //creates a shortest path with Dijkstra's between two
-    Network getShortestPath(int src, int dst); //todo
+    Network getShortestPath(int src, int dst);
     //gets the length of a path from vert src to vert dst
-    //todo: int getPathLen()
+    int getPathLen(int src, int dst);
 
 
     //Saves a dot representation of the network and renders gif image

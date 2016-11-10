@@ -148,5 +148,20 @@ void Network::printVerts(){
 }
 
 Network Network::getShortestPath(int src, int dst){
-  return *this;
+  Network tempnet;
+  //todo
+}
+
+int Network::randVert(){
+  return Net->GetRndNId();
+}
+
+std::tuple<int, int, int> Network::randEdge(){
+  int src = randVert();
+  std::vector<int> connVerts = Net->getConnectedVerts(src);
+  std::tuple<int, int, int> outTup;
+  int dst = connVerts[rand() % connVerts.size()];
+  int w = getWeight(src, dst);
+  outTup = std::make_tuple(src, dst, w);
+  return outTup;
 }
