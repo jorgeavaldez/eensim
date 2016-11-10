@@ -8,19 +8,23 @@ class FlowFactory {
   public:
     static int flowCount = 0;
     const static int flowCap;
+
+    static int sourceNodeId = -1;
+    static int endNodeId = -1;
+
     Network* net;
 
-    FlowFactory(fCap = 10000, Network* n);
+    FlowFactory(int fCap = 10000, Network* n);
 
     Flow getRandomFlow(int rTimeUB = 0, int nPacketUB = 10);
 
     Flow getFlow(int rTime, int nPackets);
 
-    std::vector getFlowList(int rTimeUB, int nPacketUB, int nFlows);
+    std::vector<Flow> getFlowList(int rTimeUB = 0, int nPacketUB = 10, int nFlows = 10000);
 
   private:
     Flow initializeFlow(int rTime, int nPackets);
-
+    std::mt19937 rng;
 };
 
-#endif
+#endif //_FLOWFACTORY_HPP
