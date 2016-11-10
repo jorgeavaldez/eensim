@@ -61,6 +61,15 @@ void Network::labelEdge(int src, int dst, int w){
   this->Net->AddSAttrDatE(src, dst, id, weight);
 }
 
+int Network::getWeight(int src, int dst){
+  TInt s(src);
+  TInt d(dst);
+  TStr id("weight");
+  TInt w;
+  this->Net->GetSAttrDatE(s, d, id, w);
+  return w.Val;
+}
+
 std::vector< std::tuple<int, int, int> > Network::listEdges(){
   std::vector< std::tuple<int, int, int> > outVec;
   std::tuple<int, int, int> tempTup;
@@ -88,6 +97,14 @@ std::vector<int> Network::listVerts(){
 
 void Network::addVert(int v){
   this->Net->AddNode(v);
+}
+
+std::vector<int> Network::getConnectedVerts(int v){
+  std::vector<int> outVec;
+  auto node = Net->GetNI(v);
+  for(int i = 0; i < node.GetDeg(); i++)
+    outVec.push_back(node.GetOutNId(i));
+  return outVec;
 }
 
 void Network::makeGviz(std::string fName, std::string gName = "", bool weights){
@@ -120,10 +137,6 @@ Network Network::getBFS(int start){
   return outNet;
 }
 
-// Network Network::getShortestPath(int src, int dst){
-//
-// }
-
 void Network::printEdges(){
   for(TUndirNet::TEdgeI EI = this->Net->BegEI(); EI < this->Net->EndEI(); EI++){
     TInt src = EI.GetSrcNId();
@@ -139,3 +152,9 @@ void Network::printVerts(){
   for (TUndirNet::TNodeI NI = this->Net->BegNI(); NI < this->Net->EndNI(); NI++)
     printf("%d %d %d\n", NI.GetId(), NI.GetOutDeg(), NI.GetInDeg());
 }
+
+// Network Network::getAStar(int src, int dst){
+//   Network tempnet;
+//
+//
+// }

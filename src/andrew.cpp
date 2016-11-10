@@ -23,8 +23,16 @@ int main() {
 
   std::cout << std::endl;
 
+  std::vector<int> connNodes = myNet.getConnectedVerts(0);
+  printf("Verts connected to 0:\n");
+  for(int i = 0; i < connNodes.size(); i++)
+    printf("%d\n", connNodes[i]);
+
   myNet.makeGviz("test", "test");
 
+  printf("\nEdge weight between 0 and 2: %d\n", myNet.getWeight(0, 2));
+
+  std::cout << std::endl;
   Network mst = myNet.getBFS(2);
 
   mst.printEdges();
