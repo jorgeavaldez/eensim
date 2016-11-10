@@ -1,4 +1,5 @@
-#include "Network.hpp"
+#ifndef _FLOW_HPP
+#define _FLOW_HPP
 
 public struct Flow{
    public int flowID;
@@ -23,5 +24,7 @@ public struct Flow{
      finalTime = 0;
      waitTime = 0;
      slowdown = 0.0;
-   }	
-}
+   }
+};
+
+#endif //_FLOW_HPP
