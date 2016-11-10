@@ -158,7 +158,7 @@ int Network::randVert(){
 
 std::tuple<int, int, int> Network::randEdge(){
   int src = randVert();
-  std::vector<int> connVerts = Net->getConnectedVerts(src);
+  std::vector<int> connVerts = getConnectedVerts(src);
   std::tuple<int, int, int> outTup;
   int dst = connVerts[rand() % connVerts.size()];
   int w = getWeight(src, dst);
