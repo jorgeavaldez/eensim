@@ -16,31 +16,82 @@ class Network{
     int numEdges;
     PUndirNet Net;
 
-    Network();
-    Network(int e, int v);
+    //default constructor
+    Network(int e = 10, int v = 15);
 
+    //generates random weights in range(1, ubound)
     void genNet(int ubound);
 
+
+    /*
+     * Edge operations
+     * An edge is defined with 2 vertex ids
+     */
+
+    //adds edge without weight
     void addEdge(int src, int dst);
+    //adds edge with weight
     void addEdge(int src, int dst, int w);
+    //assigns weight to edge
     void labelEdge(int src, int dst, int w);
+    //gets weight of edge
     int getWeight(int src, int dst);
 
+
+    /*
+     * Vertex operations
+     */
+
+     //adds vert with id v
+     void addVert(int v);
+     //gives a vector of all the verts connected to v
+     std::vector<int> getConnectedVerts(int v);
+     //todo: getDeg()
+
+
+    /*
+     * Vector functions
+     */
+
+    //gives a vector of all edges on the network in the following format:
+    //tuple<0> = source vert
+    //tuple<1> = dest vert
+    //tuple<2> = weight
+    //easy to unwrap with std::tie
     std::vector< std::tuple<int, int, int> > listEdges();
+    //gives a vector of all verts on the network
     std::vector<int> listVerts();
 
-    void addVert(int v);
-    std::vector<int> getConnectedVerts(int v);
 
-    //use only with my fork of snap
-    void makeGviz(std::string fName, std::string gName, bool weights=true);
+    /*
+     * Print functions
+     */
 
-    Network getBFS(int start);
-
+    //prints all edges in network with weights
     void printEdges();
+    //prints all verts in network with their degree
     void printVerts();
 
-    // Network getAStar(int src, int dst);
+
+    /*
+     * Shortest path operations
+     */
+
+    //creates a breadth-first-search tree from a start vert
+    Network getBFS(int start);
+    //gets number of hops from vert src to vert dst
+    //todo: int getHops()
+    //creates a shortest path with Dijkstra's between two
+    Network getShortestPath(int src, int dst); //todo
+    //gets the length of a path from vert src to vert dst
+    //todo: int getPathLen()
+
+
+    //Saves a dot representation of the network and renders gif image
+    //with optional edge weight labeling
+    //use only with my fork of snap
+    //shameless plug: https://github.com/dacoconuttman/snap
+    void makeGviz(std::string fName, std::string gName, bool weights=true);
 };
 
 #endif

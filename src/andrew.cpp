@@ -41,6 +41,5 @@ int main() {
 
   mst.makeGviz("mst", "mst");
 
-
   return 0;
 }

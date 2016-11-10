@@ -1,11 +1,5 @@
 #include "Network.hpp"
 
-Network::Network(){
-  this->numVerts = 10;
-  this->numEdges = 15;
-  this->Net = new TUndirNet(numVerts, numEdges);
-}
-
 Network::Network(int v, int e){
   this->numVerts = v;
   this->numEdges = e;
@@ -144,17 +138,15 @@ void Network::printEdges(){
     TStr id("weight");
     TInt val;
     this->Net->GetSAttrDatE(src, dst, id, val);
-    printf("Edge %d->%d has attribute, with id %s, with value %d.\n", src, dst, id.CStr(), val.Val);
+    printf("edge: %d--%d,  %s: %d.\n", src, dst, id.CStr(), val.Val);
   }
 }
 
 void Network::printVerts(){
   for (TUndirNet::TNodeI NI = this->Net->BegNI(); NI < this->Net->EndNI(); NI++)
-    printf("%d %d %d\n", NI.GetId(), NI.GetOutDeg(), NI.GetInDeg());
+    printf("id: %d, degree: %d \n", NI.GetId(), NI.GetOutDeg(), NI.GetInDeg());
 }
 
-// Network Network::getAStar(int src, int dst){
-//   Network tempnet;
-//
-//
-// }
+Network Network::getShortestPath(int src, int dst){
+  return *this;
+}
