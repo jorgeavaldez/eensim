@@ -1,4 +1,6 @@
 #include "Network.hpp"
+#include "FlowFactory.hpp"
+#include "DijkstraAdaptor.hpp"
 
 int main() {
   Network myNet(10, 15);
@@ -8,8 +10,8 @@ int main() {
   std::cout << std::endl;
   myNet.printVerts();
   std::cout << std::endl;
-
-  auto edgeVec = myNet.listEdges();
+   
+  /**auto edgeVec = myNet.listEdges();
   for(int i = 0; i < edgeVec.size(); i++){
     int src, dst, w;
     std::tie(src, dst, w) = edgeVec[i];
@@ -40,6 +42,6 @@ int main() {
   mst.printVerts();
 
   mst.makeGviz("mst", "mst");
-
+  */
   return 0;
 }
