@@ -6,15 +6,15 @@
 
 class FlowFactory {
   public:
-    static int flowCount = 0;
+    static int flowCount;
     const static int flowCap;
 
-    static int sourceNodeId = -1;
-    static int endNodeId = -1;
+    static int sourceNodeId;
+    static int endNodeId;
 
     Network* net;
 
-    FlowFactory(int fCap = 10000, Network* n);
+    FlowFactory(Network* n, int fCap = 10000);
 
     Flow getRandomFlow(int rTimeUB = 0, int nPacketUB = 10);
 
