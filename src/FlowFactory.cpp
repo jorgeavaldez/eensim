@@ -1,9 +1,12 @@
 #include "FlowFactory.hpp"
 
-FlowFactory::FlowFactory(int fCap, Network* n){
+FlowFactory::FlowFactory(Network* n, int fCap){
   this->flowCap = fCap;
   this->net = n;
   this->rngeesus.seed(std::random_device()());
+  this->flowCount = 0;
+  this->sourceNodeId = -1;
+  this->endNodeId = -1;
 }
 
 Flow FlowFactory::getRandomFlow(int rTimeUB, int nPacketUB){
