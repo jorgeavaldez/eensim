@@ -1,0 +1,15 @@
+--------
+/vagrant/src/andrew.Err
+Tue Nov 29 02:27:29 2016
+Execution stopped: Graph->IsNode(StartNId), file ../Snap-3.0/snap-core/bfsdfs.h, line 102
+--------
+--------
+/vagrant/src/andrew.Err
+Tue Nov 29 02:33:10 2016
+Execution stopped: Graph->IsNode(StartNId), file ../Snap-3.0/snap-core/bfsdfs.h, line 102
+--------
+--------
+/vagrant/src/andrew.Err
+Tue Nov 29 02:34:06 2016
+Execution stopped: (1.0 * (Nodes-1) / 2 * (IsDir ? 2 : 1)) >= (1.0 * Edges / Nodes) [Reason:'Not enough nodes (1), for edges (20).'], file ../Snap-3.0/snap-core/ggen.h, line 222
+--------
