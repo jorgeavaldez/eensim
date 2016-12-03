@@ -1,15 +1,17 @@
 #include "Network.hpp"
-#include "FlowFactory.hpp"
 #include "DijkstraAdaptor.hpp"
 
 int main() {
   Network myNet(10, 15);
 
   myNet.genNet(20);
-  myNet.printEdges();
-  std::cout << std::endl;
-  myNet.printVerts();
-  std::cout << std::endl;
+
+  DijkstraAdaptor dadapt = DijkstraAdaptor();
+  dadapt.getFlow(&myNet, 0, 1);
+  //myNet.printEdges();
+  //std::cout << std::endl;
+  //myNet.printVerts();
+  //std::cout << std::endl;
    
   /**auto edgeVec = myNet.listEdges();
   for(int i = 0; i < edgeVec.size(); i++){

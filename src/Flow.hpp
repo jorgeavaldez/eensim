@@ -1,6 +1,7 @@
 #ifndef _FLOW_HPP
 #define _FLOW_HPP
 
+#include <vector>
 struct Flow{
    public:
       int flowID;
@@ -14,18 +15,18 @@ struct Flow{
 
       Flow(int id, int releaseT, int numPacks, int startID, int endID, std::vector<int> p)
       {
-      //inputs
-      flowID = id;
-      releaseTime = releaseT;
-      numPackets = numPacks;
-      startNodeID = startID;
-      endNodeID = endID;
-      this->path = p;
+	//inputs
+	flowID = id;
+	releaseTime = releaseT;
+	numPackets = numPacks;
+	startNodeID = startID;
+	endNodeID = endID;
+	this->path = p;
 
-      //initialize everything else to 0 cuz im tired
-      finalTime = 0;
-      waitTime = 0;
-      slowdown = 0.0;
+	//initialize everything else to 0 cuz im tired
+	finalTime = 0;
+	waitTime = 0;
+	slowdown = 0.0;
       }
 
       std::vector<int> getPath(){
