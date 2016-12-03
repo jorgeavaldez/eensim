@@ -67,18 +67,21 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
   return shortestPath;
 }
 
-
+//given the set of visited nodes and the table of nodeID,weight pairs
+//return the node in the network with the lowest cost 
 int chooseNextNode(std::vector<std::tuple<int, int> > weights, std::vector<int> visited){
    int nextNodeID;
    int numNodes = weights.size();
    int min = INT_MAX;
    for(int i = 0; i < numNodes; i++)
    {
-      //visted contains weights[i]
-      if(std::get<1>(weights[i]) >= min || std::find(visited.begin(), visited.end(), i) != visited.end())
-        continue;
-      else  
-        nextNodeID = i;
+      //if i has not been visited and is less than the current minimum,
+      //that i's weight becomes new minium and it should be the next node
+      if(std::get<1>(weights[i]) <=  min && !(std::find(visited.begin(), visited.end(), i) != visited.end()) )
+      {
+        min = std::get<1>weights[i];
+	nextNodeID = i;
+      }
    }
 
    return nextNodeID;
