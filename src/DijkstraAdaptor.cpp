@@ -1,4 +1,4 @@
-#include "DijkstraAdaptor.h"
+#include "DijkstraAdaptor.hpp"
 
 std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
 {
@@ -62,7 +62,12 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
     //shortestPath.push_back(min_node);
     
   }
-  
+  for(int x = 0; x < weights.size(); x++)
+  {
+
+    std::cout<< x << std::get<0>(weights[x]) << ": " << std::get<1>(weights[x]) << endl;
+    
+  }
 
   return shortestPath;
 }
