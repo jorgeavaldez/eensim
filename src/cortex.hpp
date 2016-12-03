@@ -6,15 +6,18 @@
 #include <algorithm>
 #include <iostream>
 #include <tuple>
+#include <limits>
 
 #include "FlowFactory.hpp"
 #include "Network.hpp"
+#include "IPathAdaptor.hpp"
 
 class Cortex{
   private:
     FlowFactory fFactory;
+    IPathAdaptor adaptor;
     void sortFlows();
-    void reroute(Flow* f);
+    void reroute(Flow* f, std::tuple<int, int> edge);
 
   public:
     std::vector<Flow> flows;
