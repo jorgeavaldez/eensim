@@ -21,7 +21,23 @@ void Cortex::reroute(Flow* f){
 }
 
 void Cortex::startSimulation(){
-  for(int i = 0; i < this->flows.size(); i++){
-    
+  bool inProgress = true;
+  int iter = 0;
+  while(inProgress){
+    for(int i = 0; i < this->flows.size(); i++){
+      if(iter < this->flows[i].path.size()){
+        auto currEdge = std::make_tuple(this->flows[i].path[iter],
+           this->flows[i].path[iter + 1]);
+        if(this->flowMap.count(currEdge) > 0){
+          std::cout << "Collision found" << std::endl;
+          reroute(&flows[i]);
+        }else{
+          this->flowMap[currEdge] = &this->flows[i];
+        }
+      }else{
+        std::cout << "This flow has ended" << std::endl;
+      }
+    }
+    iter++;
   }
 }
