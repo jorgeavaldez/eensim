@@ -26,7 +26,7 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
   
   //temporary values to hode the n
   int min_node;
-  int min;
+  int temp;
   int cur;	
   std::vector<int> connectedVerts;
   
@@ -41,17 +41,17 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
     
     //this shit is fucked up, were not doing comparisons here
     //just updating
-    min = INT_MAX;
+    
     for(int i = 0; i < net.getDeg(cur); i++)
     {
-      if(net.getWeight(cur,connectedVerts[i]) <= min)
+      
+      temp = std::get<1>(weights[cur]) + net.getWeight(cur, connectedVerts[i]);      
+
+      if(temp < std::get<1>(weights[connectedVerts[i]])
       {
-        min = net.getWeight(cur,connectedVerts[i]);
-        min_node = connectedVerts[i];
+        std::get<1>(weights[connectedVerts[i]]) = temp;
 
       }
-
-      weights[connectedVerts[i]] = std::tuple<int,int>(connectedVerts[i],min);
 
     }
     
@@ -59,7 +59,7 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
     //at the end of the loop push the 
     visited.push_back(min_node);
 
-    shortestPath.push_back(min_node);
+    //shortestPath.push_back(min_node);
     
   }
   
@@ -77,7 +77,7 @@ int chooseNextNode(std::vector<std::tuple<int, int> > weights, std::vector<int> 
    {
       //if i has not been visited and is less than the current minimum,
       //that i's weight becomes new minium and it should be the next node
-      if(std::get<1>(weights[i]) <=  min && !(std::find(visited.begin(), visited.end(), i) != visited.end()) )
+  
       {
         min = std::get<1>weights[i];
 	nextNodeID = i;
