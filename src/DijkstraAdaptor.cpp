@@ -46,7 +46,7 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
     //this shit is fucked up, were not doing comparisons here
     //just updating
     
-    for(int i = 0; i < net->getDeg(cur); i++)
+    for(int i = 0; i < connectedVerts.size(); i++)
     {
       
       temp = std::get<1>(weights[cur]) + net->getWeight(cur, connectedVerts[i]);      
@@ -78,7 +78,7 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
 
 //given the set of visited nodes and the table of nodeID,weight pairs
 //return the node in the network with the lowest cost 
-int chooseNextNode(std::vector<std::tuple<int, int> > weights, std::vector<int> visited){
+int DijkstraAdaptor::chooseNextNode(std::vector<std::tuple<int, int> > weights, std::vector<int> visited){
    int nextNodeID;
    int numNodes = weights.size();
    int min = INT_MAX;
