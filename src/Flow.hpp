@@ -20,7 +20,7 @@ struct Flow{
       numPackets = numPacks;
       startNodeID = startID;
       endNodeID = endID;
-      this.path = p;
+      this->path = p;
 
       //initialize everything else to 0 cuz im tired
       finalTime = 0;
@@ -29,11 +29,11 @@ struct Flow{
       }
 
       std::vector<int> getPath(){
-	return this.path;
+	return this->path;
       }
 
       void setPath(std::vector<int> p){
-	this.path = p;
+	this->path = p;
       }
 
    private:
