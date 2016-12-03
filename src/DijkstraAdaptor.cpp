@@ -49,8 +49,8 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
     
     for(int i = 0; i < connectedVerts.size(); i++)
     {
-      std::cout << "Neighbor" << i << " of " << cur << ":: " <<  std::get<1>(weights[connectedVerts[i]]) << std::endl;
-      std::cout << "Neighbor" << i << "weight " << net->getWeight(cur, connectedVerts[i]) << std::endl;
+      std::cout << "Neighbor " << i << " of " << cur << ":: " <<  std::get<1>(weights[connectedVerts[i]]) << std::endl;
+      std::cout << "Neighbor " << i << " weight " << net->getWeight(cur, connectedVerts[i]) << std::endl;
       temp = std::get<1>(weights[cur]) + net->getWeight(cur, connectedVerts[i]);      
       if(temp < std::get<1>(weights[connectedVerts[i]]))
       {
@@ -63,8 +63,11 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
     
 
     //at the end of the loop push the 
-    visited.push_back(min_node);
-
+    visited.push_back(cur);
+    
+    std::cout << "VISITED: ";
+    for(size_t i = 0; i < visited.size();i++)
+	std::cout << " " << visited[i];
     //shortestPath.push_back(min_node);
     
   }
@@ -84,10 +87,15 @@ int DijkstraAdaptor::chooseNextNode(std::vector<std::tuple<int, int> > weights, 
    int nextNodeID;
    int numNodes = weights.size();
    int min = INT_MAX;
+   bool isLessThanMin;
+   bool inVisited;
    for(int i = 0; i < numNodes; i++)
    {
+      
       //if i has not been visited and is less than the current minimum,
       //that i's weight becomes new minium and it should be the next node
+      isLessThanMin = std::get<1>(weights[i]);
+      inVisited = std::find(visited.begin(),visited.end(), i) != visited.end();
       if(std::get<1>(weights[i]) <= min && !(std::find(visited.begin(), visited.end(), i) != visited.end())) 
       {
         min = std::get<1>(weights[i]);
