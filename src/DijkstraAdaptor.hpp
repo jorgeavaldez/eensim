@@ -1,7 +1,7 @@
 #include "IPathAdaptor.hpp"
 #include <vector>
 
-public class DijkstraAdaptor extends IPathAdaptor
+class DijkstraAdaptor:public IPathAdaptor
 {
     public:
         DijkstraAdaptor();
