@@ -54,15 +54,13 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
       weights[connectedVerts[i]] = std::tuple<int,int>(connectedVerts[i],min);
 
     }
+    
 
+    //at the end of the loop push the 
     visited.push_back(min_node);
 
     shortestPath.push_back(min_node);
     
-    //FIX THIS--- you have to choose the next node
-    //out of all of the nodes in the graph
-    //not just current neighbors
-    cur = min_node;
   }
   
 
@@ -70,7 +68,7 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
 }
 
 
-int chooseNextNode(std::vector<std::tuple<int, int> > weights){
+int chooseNextNode(std::vector<std::tuple<int, int> > weights, std::vector<int> visited){
    int nextNodeID;
    int numNodes = weights.size();
    int min = INT_MAX;
