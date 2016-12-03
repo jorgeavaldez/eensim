@@ -1,5 +1,6 @@
 #include "IPathAdaptor.hpp"
 #include <vector>
+#include <algorithm>
 
 class DijkstraAdaptor : public IPathAdaptor
 {
