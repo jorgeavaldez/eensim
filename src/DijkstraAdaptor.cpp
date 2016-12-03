@@ -1,6 +1,6 @@
 #include "DijkstraAdaptor.h"
 
-Flow DijkstraAdaptor::getFlow(Network* net, int start, int end)
+std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
 {
    
 }

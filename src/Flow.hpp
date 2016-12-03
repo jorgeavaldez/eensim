@@ -16,7 +16,7 @@ public struct Flow{
    public vector<int> path;
 
    public Flow(int id, int releaseT, int numPacks, int startID, int endID,
-     int tWeight, vector<int> p)
+     vector<int> p)
    {
      //inputs
      flowID = id;
@@ -24,7 +24,6 @@ public struct Flow{
      numPackets = numPacks;
      startNodeID = startID;
      endNodeID = endID;
-     totalWeight = tWeight;
      path = p;
 
      //initialize everything else to 0 cuz im tired

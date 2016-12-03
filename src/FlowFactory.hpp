@@ -3,6 +3,7 @@
 
 #include "Network.hpp"
 #include "Flow.hpp"
+#include "IPathAdaptor.hpp"
 
 class FlowFactory {
   public:
@@ -15,6 +16,7 @@ class FlowFactory {
     Network* net;
 
     FlowFactory(Network* n, int fCap = 10000);
+    FlowFactory(Network* n, IPathAdaptor adaptor, int fCap = 10000);
 
     Flow getRandomFlow(int rTimeUB = 0, int nPacketUB = 10);
 
@@ -23,9 +25,13 @@ class FlowFactory {
     std::vector<Flow> getFlowList(int rTimeUB = 0, int nPacketUB = 10,
       int nFlows = 10000);
 
+    void setPathAdaptor(IPathAdaptor adaptor);
+
   private:
     Flow initializeFlow(int rTime, int nPackets);
     std::mt19937 rngeesus;
+
+    IPathAdaptor pathGenerator;
 };
 
 #endif //_FLOWFACTORY_HPP
