@@ -1,5 +1,9 @@
 #include "DijkstraAdaptor.hpp"
 
+DijkstraAdaptor::DijkstraAdaptor() {
+
+}
+
 std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
 {
   //vector containing ID's in order of the shortest path from s to d  
@@ -12,7 +16,7 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
   //for each node
   //all values are initially assigned to <node ID, cost to A>
   std::vector<std::tuple<int,int> > weights;
-  int vertAmt = net.listVerts().size();
+  int vertAmt = net->listVerts().size();
   for(int a = 0; a < vertAmt; a++)
   {
     weights.push_back(std::tuple<int,int>(a,INT_MAX));
@@ -22,7 +26,7 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
   std::get<1>(weights[start]) = 0;
 
   //adds the start node to the set
-  visted.push_back(start);
+  visited.push_back(start);
   
   //temporary values to hode the n
   int min_node;
@@ -34,20 +38,20 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
   while(visited.size() <= vertAmt)
   {
     //here we should be choosing the next node*****
-    cur = chooseNextNode(weights);
+    cur = chooseNextNode(weights, visited);
 
     //get all the neighbors of the current node
-    connectedVerts = net.getConnectedVerts(cur);
+    connectedVerts = net->getConnectedVerts(cur);
     
     //this shit is fucked up, were not doing comparisons here
     //just updating
     
-    for(int i = 0; i < net.getDeg(cur); i++)
+    for(int i = 0; i < net->getDeg(cur); i++)
     {
       
-      temp = std::get<1>(weights[cur]) + net.getWeight(cur, connectedVerts[i]);      
+      temp = std::get<1>(weights[cur]) + net->getWeight(cur, connectedVerts[i]);      
 
-      if(temp < std::get<1>(weights[connectedVerts[i]])
+      if(temp < std::get<1>(weights[connectedVerts[i]]))
       {
         std::get<1>(weights[connectedVerts[i]]) = temp;
 
@@ -65,7 +69,7 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
   for(int x = 0; x < weights.size(); x++)
   {
 
-    std::cout<< x << std::get<0>(weights[x]) << ": " << std::get<1>(weights[x]) << endl;
+    std::cout<< x << std::get<0>(weights[x]) << ": " << std::get<1>(weights[x]) << std::endl;
     
   }
 
@@ -84,7 +88,7 @@ int chooseNextNode(std::vector<std::tuple<int, int> > weights, std::vector<int> 
       //that i's weight becomes new minium and it should be the next node
   
       {
-        min = std::get<1>weights[i];
+        min = std::get<1>(weights[i]);
 	nextNodeID = i;
       }
    }
