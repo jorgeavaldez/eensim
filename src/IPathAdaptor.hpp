@@ -5,8 +5,6 @@
 #include "Network.hpp"
 #include <vector> 
 
-#include <vector>
-
 class IPathAdaptor{
   public:
     IPathAdaptor();
