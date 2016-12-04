@@ -35,31 +35,63 @@ void Cortex::startSimulation() {
   int iter = 0;
   int flowCount = 0;
   while(inProgress) {
-    for(auto flow : this->flows) {
+    for(int i = 0; i < this->flows.size(); i++){
 
       // I think this should be a while where we check the current flow
-      if(iter < flow.path.size()) {
-        auto currEdge = std::make_tuple(flow.path[iter],
-           flow.path[iter + 1]);
+      if(iter < this->flows[i].path.size()) {
+        auto currEdge = std::make_tuple(this->flows[i].path[iter],
+          this->flows[i].path[iter + 1]);
 
-        if(this->flowMap.count(currEdge) > 0){
-          std::cout << "Collision found" << std::endl;
-          reroute(&flows[i], currEdge);
-          this->flowMap[currEdge] = &(flow);
+          if(this->flowMap.count(currEdge) > 0){
+            std::cout << "Collision found" << std::endl;
+            reroute(&flows[i], currEdge);
+            this->rerouted.push_back(this->flows[i]);
+            this->flows.erase(this->flows.begin() + i);
+            // this->flowMap[currEdge] = &(flow);
+          }
+
+          else{
+            this->flowMap[currEdge] = &(this->flows[i]);
+          }
+
         }
 
         else{
-          this->flowMap[currEdge] = &(flow);
+          std::cout << "This flow has ended" << std::endl;
+          flowCount++;
+        }
+      }
+      iter++;
+
+      if(flowCount == this->flows.size()) inProgress = false;
+    }
+
+    if(!rerouted.empty()){
+      inProgress = true;
+      iter = flowCount = 0;
+      while(inProgress){
+        for(int i = 0; i < this->rerouted.size(); i++){
+
+          // I think this should be a while where we check the current flow
+          if(iter < this->rerouted[i].path.size()) {
+            auto currEdge = std::make_tuple(this->rerouted[i].path[iter],
+              this->rerouted[i].path[iter + 1]);
+
+              this->flowMap[currEdge] = &(this->rerouted[i]);
+
+            }
+
+            else{
+              std::cout << "This flow has ended" << std::endl;
+              flowCount++;
+            }
+          }
+          iter++;
+
+          if(flowCount == this->rerouted.size()) inProgress = false;
         }
 
       }
-
-      else{
-        std::cout << "This flow has ended" << std::endl;
-        flowCount++;
-      }
     }
-    iter++;
-    if(flowCount == this->flows.size()) inProgress = false;
+
   }
-}

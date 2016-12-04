@@ -21,6 +21,7 @@ class Cortex{
 
   public:
     std::vector<Flow> flows;
+    std::vector<Flow> rerouted;
     std::unordered_map< tuple<int, int>, Flow* > flowMap;
     Network* network;
 
