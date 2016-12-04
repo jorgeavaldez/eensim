@@ -18,11 +18,14 @@ class Cortex{
     IPathAdaptor adaptor;
     void sortFlows();
     void reroute(Flow* f, std::tuple<int, int> edge);
+    void simulate(vector<Flow> v);
 
   public:
     std::vector<Flow> flows;
+    std::vector<Flow> finishedFlows;
     std::vector<Flow> rerouted;
-    std::unordered_map< tuple<int, int>, Flow* > flowMap;
+    std::unordered_map< tuple<int, int>, vector<Flow*> > flowMap;
+    std::unordered_map<int, int> flowCount;
     Network* network;
 
     Cortex();

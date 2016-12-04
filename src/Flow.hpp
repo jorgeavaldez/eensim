@@ -11,6 +11,7 @@ public struct Flow{
    public int numPackets;
    public int startNodeID;
    public int endNodeID;
+   public int numReroutes; //this attribute is to multiply by our "cost" of reroute at the end to calculate slowdown
    public double slowdown;
    public int totalWeight;
    public vector<int> path;
@@ -20,13 +21,14 @@ public struct Flow{
    {
      //inputs
      flowID = id;
-     releastTime = releaseT;
+     releaseTime = releaseT;
      numPackets = numPacks;
      startNodeID = startID;
      endNodeID = endID;
      path = p;
 
      //initialize everything else to 0 cuz im tired
+     numReroutes = 0;
      finalTime = 0;
      waitTime = 0;
      slowdown = 0.0;

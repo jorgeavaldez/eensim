@@ -3,7 +3,7 @@
 Cortex::Cortex(){}
 
 void Cortex::sortFlows() {
-  std::sort(this->flows.begin(), this->flows.end(), [](const Flow& f1, const Flow& f2) {
+  std::sort(this->flows.begin(), this->flows.end(), [](Flow f1, Flow f2) {
     return f1.totalWeight < f2.totalWeight;
   });
 }
@@ -30,68 +30,53 @@ void Cortex::initializeSimulation(Network* n, IPathAdaptor a, int fCap) {
 //    - Maybe a way to specify the ostream?
 // - Reroute should make change the path of the route but the next iteration
 //      should run on the same route with the different path
+
+void Cortex::resimulate(){
+
+}
+
 void Cortex::startSimulation() {
-  bool inProgress = true;
+
+  auto tempFlows = this->flows;
+
+
+  for(int i = 0; i < tempFlows.size(); i++) {
+    this->flowCount[tempFlows[i].flowID] = 0;
+  }
+
   int iter = 0;
-  int flowCount = 0;
-  while(inProgress) {
-    for(int i = 0; i < this->flows.size(); i++){
 
-      // I think this should be a while where we check the current flow
-      if(iter < this->flows[i].path.size()) {
-        auto currEdge = std::make_tuple(this->flows[i].path[iter],
-          this->flows[i].path[iter + 1]);
+  while(!flows.empty()) {
+    for(int i = 0; i < tempFlows.size(); i++) {
+      if(tempFlows[i].releaseTime <= iter){
 
-          if(this->flowMap.count(currEdge) > 0){
-            std::cout << "Collision found" << std::endl;
-            reroute(&flows[i], currEdge);
-            this->rerouted.push_back(this->flows[i]);
-            this->flows.erase(this->flows.begin() + i);
-            // this->flowMap[currEdge] = &(flow);
-          }
+        if(currPathPos + 1 < tempFlows[i].path.size()) {
+          int currPathPos = flowCount[tempFlows[i].id];
+          auto currEdge = std::make_tuple(tempFlows[i].path[currPathPos],
+            tempFlows[i].path[currPathPos + 1]);
 
-          else{
-            this->flowMap[currEdge] = &(this->flows[i]);
-          }
-
-        }
-
-        else{
-          std::cout << "This flow has ended" << std::endl;
-          flowCount++;
-        }
-      }
-      iter++;
-
-      if(flowCount == this->flows.size()) inProgress = false;
-    }
-
-    if(!rerouted.empty()){
-      inProgress = true;
-      iter = flowCount = 0;
-      while(inProgress){
-        for(int i = 0; i < this->rerouted.size(); i++){
-
-          // I think this should be a while where we check the current flow
-          if(iter < this->rerouted[i].path.size()) {
-            auto currEdge = std::make_tuple(this->rerouted[i].path[iter],
-              this->rerouted[i].path[iter + 1]);
-
-              this->flowMap[currEdge] = &(this->rerouted[i]);
-
+            if(this->flowMap.count(currEdge) < this->Network.getWeight(std::get<0>(currEdge),
+            std::get<1>(currEdge)) + 1) {
+              this->flowMap[currEdge] = &(tempFlows[i]);
             }
 
-            else{
-              std::cout << "This flow has ended" << std::endl;
-              flowCount++;
+            else {
+              std::cout << "Collision found" << std::endl;
+              reroute(&flows[i], currEdge);
+              this->flowCount[tempFlows[i].flowID] = 0;
+              tempFlows[i].numReroutes++;
             }
+
+            tempFlows[i].finalTime++;
           }
-          iter++;
 
-          if(flowCount == this->rerouted.size()) inProgress = false;
+          else {
+            std::cout << "This flow has ended" << std::endl;
+            this->finishedFlows.push_back(tempFlows[i]);
+            tempFlows.erase(tempFlows.begin() + i);
+          }
         }
-
       }
     }
-
+    iter++;
   }
