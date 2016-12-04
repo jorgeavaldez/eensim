@@ -2,18 +2,18 @@
 #include "DijkstraAdaptor.hpp"
 
 int main() {
-  Network myNet(7, 13);
+  Network myNet(15, 25);
 
-  myNet.genNet(20);
+  myNet.genNet(10);
 
   DijkstraAdaptor dadapt = DijkstraAdaptor();
-  dadapt.getFlow(&myNet, 0, 1);
-  //myNet.printEdges();
-  //std::cout << std::endl;
-  //myNet.printVerts();
-  //std::cout << std::endl;
+  dadapt.getFlow(&myNet, 0, 10);
+  myNet.printEdges();
+  std::cout << std::endl;
+  myNet.printVerts();
+  std::cout << std::endl;
    
-  /**auto edgeVec = myNet.listEdges();
+  auto edgeVec = myNet.listEdges();
   for(int i = 0; i < edgeVec.size(); i++){
     int src, dst, w;
     std::tie(src, dst, w) = edgeVec[i];
@@ -21,7 +21,7 @@ int main() {
   }
   std::cout << std::endl;
 
-  std::vector<int> nodeVec = myNet.listVerts();
+  /**std::vector<int> nodeVec = myNet.listVerts();
   for(int i = 0; i < nodeVec.size(); i++)
     printf("Node: %d\n", nodeVec[i]);
 
@@ -30,11 +30,11 @@ int main() {
   std::vector<int> connNodes = myNet.getConnectedVerts(0);
   printf("Verts connected to 0:\n");
   for(int i = 0; i < connNodes.size(); i++)
-    printf("%d\n", connNodes[i]);
+    printf("%d\n", connNodes[i]);*/
 
-  myNet.makeGviz("test", "test");
+  myNet.makeGviz("dix", "dix");
 
-  printf("\nEdge weight between 0 and 2: %d\n", myNet.getWeight(0, 2));
+  /**printf("\nEdge weight between 0 and 2: %d\n", myNet.getWeight(0, 2));
 
   std::cout << std::endl;
   Network mst = myNet.getBFS(2);
