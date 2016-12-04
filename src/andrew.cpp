@@ -3,7 +3,7 @@
 #include "DijkstraAdaptor.hpp"
 
 int main() {
-  Network myNet(10, 15);
+  Network myNet(7, 13);
 
   myNet.genNet(20);
 
