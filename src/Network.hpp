@@ -18,12 +18,13 @@ class Network{
     int numEdges;
     PUndirNet Net;
 
+    //copy constructor
+    Network(Network& n);
     //default constructor
     Network(int e = 10, int v = 15);
 
     //generates random weights in range(1, ubound)
     void genNet(int ubound);
-
 
     /*
      * Edge operations

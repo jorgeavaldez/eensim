@@ -1,5 +1,11 @@
 #include "Network.hpp"
 
+Network::Network(Network& n){
+  this->numVerts = n.numVerts;
+  this->numEdges = n.numEdges;
+  this->Net = n.Net;
+}
+
 Network::Network(int v, int e){
   this->numVerts = v;
   this->numEdges = e;
