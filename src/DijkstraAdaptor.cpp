@@ -41,6 +41,14 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
     cur = chooseNextNode(weights, visited);
     std::cout << "CURRRRRR" << cur << std::endl;
 
+    if(std::get<1>(weights[cur]) == INT_MAX)
+    {
+        std::cout << "Node " << cur << " may not be connected to " << start << std::endl;
+        visited.push_back(cur);
+        shortestPath.push_back(-1);
+        continue;
+    }
+
     //get all the neighbors of the current node
     connectedVerts = net->getConnectedVerts(cur);
     
