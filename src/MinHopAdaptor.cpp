@@ -37,8 +37,15 @@ std::vector<int> MinHopAdaptor::getFlow(Network* net, int start, int end)
   {
     //here we should be choosing the next node*****
     cur = chooseNextNode(weights, visited);
+    
     std::cout << "CURRRRRR" << cur << std::endl;
 
+    if(std::get<1>(weights[cur]) == INT_MAX)
+    {
+        std::cout << "Node " << cur << " may not be connected to " << start << std::endl;
+        visited.push_back(cur);
+        continue;
+    }
     //get all the neighbors of the current node
     connectedVerts = net->getConnectedVerts(cur);
     

@@ -7,9 +7,9 @@ int main() {
   myNet.genNet(10);
 
   DijkstraAdaptor dadapt = DijkstraAdaptor();
-  dadapt.getFlow(&myNet, 0, 17);
+  dadapt.getFlow(&myNet, 0, 14);
   MinHopAdaptor minadapt = MinHopAdaptor();
-  minadapt.getFlow(&myNet, 0, 17);
+  minadapt.getFlow(&myNet, 0, 14);
   myNet.printEdges();
   std::cout << std::endl;
   myNet.printVerts();
