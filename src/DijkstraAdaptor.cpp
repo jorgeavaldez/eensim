@@ -45,7 +45,9 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
     {
         std::cout << "Node " << cur << " may not be connected to " << start << std::endl;
         visited.push_back(cur);
-        shortestPath.push_back(-1);
+        if(cur == end){
+          shortestPath.push_back(-1);
+        }
         continue;
     }
 
