@@ -76,6 +76,32 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
   {
     std::cout<< x << "Node: " <<  std::get<0>(weights[x]) << " weight =  " << std::get<1>(weights[x]) << std::endl;
   }
+  
+  std::cout << "SHORTEST PATH ";
+  int cheapestNeighborWeight = INT_MAX;
+  int bCur = end;
+  int tempNodeID;
+  while(bCur != start)
+  {
+    for(int b = 0; b < net->getConnectedVerts(bCur).size(); b++)
+    {
+      if(std::get<1>(weights[net->getConnectedVerts(bCur)[b]]) < cheapestNeighborWeight )
+      {
+        cheapestNeighborWeight = std::get<1>(weights[net->getConnectedVerts(bCur)[b]]); 
+        tempNodeID = net->getConnectedVerts(bCur)[b];      
+      }
+    }
+    shortestPath.insert(shortestPath.begin(), bCur);
+    bCur = tempNodeID;
+  }
+  shortestPath.insert(shortestPath.begin(), start);
+
+  for(int c = 0; c < shortestPath.size(); c++)
+  {
+    std::cout << " " << shortestPath[c] << " ";
+  }
+ 
+
   return shortestPath;
 }
 
