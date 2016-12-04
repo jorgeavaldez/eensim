@@ -101,7 +101,7 @@ std::vector<int> DijkstraAdaptor::getFlow(Network* net, int start, int end)
     std::cout << " " << shortestPath[c] << " ";
   }
  
-
+  std::cout << std::endl;
   return shortestPath;
 }
 

@@ -4,5 +4,5 @@
 ## Main application file
 
 MAIN = src/andrew
-DEPH = src/Network.hpp src/DijkstraAdaptor.hpp
-DEPCPP = src/Network.cpp src/DijkstraAdaptor.cpp
+DEPH = src/Network.hpp src/DijkstraAdaptor.hpp src/MinHopAdaptor.hpp
+DEPCPP = src/Network.cpp src/DijkstraAdaptor.cpp src/MinHopAdaptor.cpp
