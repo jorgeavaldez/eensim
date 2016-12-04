@@ -3,14 +3,13 @@
 #include "MinHopAdaptor.hpp"
 
 int main() {
-  Network myNet(5, 7);
-
+  Network myNet(20, 20);
   myNet.genNet(10);
 
   DijkstraAdaptor dadapt = DijkstraAdaptor();
-  dadapt.getFlow(&myNet, 0, 3);
+  dadapt.getFlow(&myNet, 0, 17);
   MinHopAdaptor minadapt = MinHopAdaptor();
-  minadapt.getFlow(&myNet, 0, 3);
+  minadapt.getFlow(&myNet, 0, 17);
   myNet.printEdges();
   std::cout << std::endl;
   myNet.printVerts();
