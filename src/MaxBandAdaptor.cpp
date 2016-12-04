@@ -4,24 +4,42 @@ MaxBandAdaptor::MaxBandAdaptor() {
 
 }
 
+//std::vector<int> MaxBandAdaptor::getBFS()
+
 std::vector<int> MaxBandAdaptor::getFlow(Network* net, int start, int end)
 {
   //vector containing ID's in order of the shortest path from s to d  
-  std::vector<int> shortestPath;
+  std::vector<int> queue;
   
   //visited set. Initially empty. Should be full at finish
-  std::vector<int> visited;
+  vector<bool> visited;
+
+
 
   //contains tuple of ID and cost to get to start 
   //for each node
   //all values are initially assigned to <node ID, cost to A>
-  std::vector<std::tuple<int,int> > weights;
+  std::vector<std::tuple<vector<int>,int> > paths;
   int vertAmt = net->listVerts().size();
   for(int a = 0; a < vertAmt; a++)
   {
     weights.push_back(std::tuple<int,int>(a,INT_MIN));
+    visited.push_back(false);
   }
+
+  visited[start] = true;
+  queue.push_back(start);
   
+  while(!queue.empty())
+  {
+    start = queue.front();
+
+    for (int i = 0; i < net->getConnectedVerts(start).size(); i++)
+    {
+      
+    }
+  }
+
   //start node's cost to itself is 0
   std::get<1>(weights[start]) = 0;
  
