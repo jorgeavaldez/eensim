@@ -1,8 +1,6 @@
 #include "MinHopAdaptor.hpp"
 
-MinHopAdaptor::MinHopAdaptor(){
-
-}
+MinHopAdaptor::MinHopAdaptor() {}
 
 std::vector<int> MinHopAdaptor::getFlow(Network* net, int start, int end)
 {
