@@ -86,6 +86,7 @@ void Cortex::startSimulation() { //starts the simulation
   simulate(this->flows);
 }
 
-void Cortex::outputSimulation(){
+void Cortex::outputSimulation(std::ostream& os){
   //todo (Andrew): make csv dump
+  os << "this finished." << std::endl;
 }

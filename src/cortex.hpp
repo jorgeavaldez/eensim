@@ -30,7 +30,7 @@ class Cortex{
     Cortex();
     void initializeSimulation(Network* n, IPathAdaptor adaptor, int fCap = 10000);
     void startSimulation();
-    void outputSimulation();
+    void outputSimulation(std::ostream& os);
 };
 
 #endif //_CORTEX_HPP
