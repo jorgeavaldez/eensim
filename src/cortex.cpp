@@ -17,6 +17,8 @@ void Cortex::reroute(Flow* f, std::tuple<int, int> edge){
 }
 
 void Cortex::initializeSimulation(Network* n, IPathAdaptor a, int fCap) {
+  if (!this->flowCount.empty()) this->flowCount.clear();
+  if (!this->flowMap.empty()) this->flowMap.clear();
   this->network = n;
   this->adaptor = a;
   Factory(network, adaptor);
@@ -24,59 +26,63 @@ void Cortex::initializeSimulation(Network* n, IPathAdaptor a, int fCap) {
   sortFlows();
 }
 
-// REVIEW
-// - inProgess is always true
-// - we need to begin output
-//    - Maybe a way to specify the ostream?
-// - Reroute should make change the path of the route but the next iteration
-//      should run on the same route with the different path
 
-void Cortex::resimulate(){
+void Cortex::simulate(vector<Flow> v){
+  vector<Flow> rerouted;
 
-}
-
-void Cortex::startSimulation() {
-
-  auto tempFlows = this->flows;
-
-
-  for(int i = 0; i < tempFlows.size(); i++) {
-    this->flowCount[tempFlows[i].flowID] = 0;
+  for(int i = 0; i < v.size(); i++) {
+    this->flowCount[v[i].flowID] = 0;
   }
 
   int iter = 0;
 
-  while(!flows.empty()) {
-    for(int i = 0; i < tempFlows.size(); i++) {
-      if(tempFlows[i].releaseTime <= iter){
+  while(!v.empty()) {
+    for(int i = 0; i < v.size(); i++) {
+      if(v[i].releaseTime <= iter){
 
-        if(currPathPos + 1 < tempFlows[i].path.size()) {
-          int currPathPos = flowCount[tempFlows[i].id];
-          auto currEdge = std::make_tuple(tempFlows[i].path[currPathPos],
-            tempFlows[i].path[currPathPos + 1]);
+        if(currPathPos + 1 < v[i].path.size()) {
+          int currPathPos = flowCount[v[i].id];
+          auto currEdge = std::make_tuple(v[i].path[currPathPos],
+            v[i].path[currPathPos + 1]);
 
             if(this->flowMap.count(currEdge) < this->Network.getWeight(std::get<0>(currEdge),
             std::get<1>(currEdge)) + 1) {
-              this->flowMap[currEdge] = &(tempFlows[i]);
+              this->flowMap[currEdge] = &(v[i]);
             }
 
             else {
               std::cout << "Collision found" << std::endl;
               reroute(&flows[i], currEdge);
-              this->flowCount[tempFlows[i].flowID] = 0;
-              tempFlows[i].numReroutes++;
+              this->flowCount[v[i].flowID] = 0;
+              v[i].numReroutes++;
+              rerouted.push_back(v[i]);
+              v.erase(v.begin() + i);
             }
 
-            tempFlows[i].finalTime++;
+            v[i].finalTime++;
+
+            if(!rerouted.empty()){
+              for(auto flow: rerouted) { flow.waitTime++; };
+            }
           }
 
           else {
             std::cout << "This flow has ended" << std::endl;
-            this->finishedFlows.push_back(tempFlows[i]);
-            tempFlows.erase(tempFlows.begin() + i);
+            this->finishedFlows.push_back(v[i]);
+            v.erase(v.begin() + i);
           }
         }
       }
     }
     iter++;
-  }
+
+    if(!rerouted.empty()) simulate(rerouted);
+}
+
+void Cortex::startSimulation() {
+  simulate(this->flows);
+}
+
+void Cortex::outputSimulation(){
+
+}

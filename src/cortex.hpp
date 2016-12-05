@@ -23,7 +23,6 @@ class Cortex{
   public:
     std::vector<Flow> flows;
     std::vector<Flow> finishedFlows;
-    std::vector<Flow> rerouted;
     std::unordered_map< tuple<int, int>, vector<Flow*> > flowMap;
     std::unordered_map<int, int> flowCount;
     Network* network;
@@ -31,6 +30,7 @@ class Cortex{
     Cortex();
     void initializeSimulation(Network* n, IPathAdaptor adaptor, int fCap = 10000);
     void startSimulation();
+    void outputSimulation();
 };
 
 #endif //_CORTEX_HPP
