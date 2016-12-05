@@ -1,5 +1,8 @@
 #include "FlowFactory.hpp"
 
+// default constructor is here to make compiler happy :-)
+FlowFactory::FlowFactory(){}
+
 FlowFactory::FlowFactory(Network* n, int fCap){
   this->flowCap = fCap;
   this->net = n;

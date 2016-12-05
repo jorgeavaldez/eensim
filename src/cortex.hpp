@@ -9,26 +9,27 @@
 #include <limits>
 
 #include "FlowFactory.hpp"
+#include "Flow.hpp"
 #include "Network.hpp"
 #include "IPathAdaptor.hpp"
 
 class Cortex{
   private:
     FlowFactory fFactory;
-    IPathAdaptor adaptor;
+    IPathAdaptor* adaptor;
     void sortFlows();
     void reroute(Flow* f, std::tuple<int, int> edge);
-    void simulate(vector<Flow> v);
+    void simulate(std::vector<Flow> v);
 
   public:
     std::vector<Flow> flows;
     std::vector<Flow> finishedFlows;
-    std::unordered_map< tuple<int, int>, vector<Flow*> > flowMap;
+    std::unordered_map< std::tuple<int, int>, std::vector<Flow* > > flowMap;
     std::unordered_map<int, int> flowCount;
     Network* network;
 
     Cortex();
-    void initializeSimulation(Network* n, IPathAdaptor adaptor, int fCap = 10000);
+    void initializeSimulation(Network* n, IPathAdaptor* adaptor, int fCap = 10000);
     void startSimulation();
     void outputSimulation(std::ostream& os);
 };

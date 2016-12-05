@@ -3,22 +3,23 @@
 
 #include <vector>
 
-public struct Flow{
-   public int flowID;
-   public int releaseTime;
-   public int finalTime;
-   public int waitTime;
-   public int numPackets;
-   public int startNodeID;
-   public int endNodeID;
-   public int numReroutes; //this attribute is to multiply by our "cost" of reroute at the end to calculate slowdown
-   public double slowdown;
-   public int totalWeight;
-   public vector<int> path;
+struct Flow {
+public:
+   int flowID;
+   int releaseTime;
+   int finalTime;
+   int waitTime;
+   int numPackets;
+   int startNodeID;
+   int endNodeID;
+   int numReroutes; //this attribute is to multiply by our "cost" of reroute at the end to calculate slowdown
+   double slowdown;
+   int totalWeight;
+   std::vector<int> path;
 
-   public Flow(int id, int releaseT, int numPacks, int startID, int endID,
-     vector<int> p)
-   {
+   Flow(){};
+   Flow(int id, int releaseT, int numPacks, int startID, int endID,
+     std::vector<int> p) {
      //inputs
      flowID = id;
      releaseTime = releaseT;
