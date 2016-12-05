@@ -1,14 +1,15 @@
 #include "Cortex.hpp"
 
-Cortex::Cortex(){}
+Cortex::Cortex(){} //default constructor. all the stuff actually gets handled in
+//initializeSimulation
 
-void Cortex::sortFlows() {
+void Cortex::sortFlows() { //magic lambda bullshit to sort flows
   std::sort(this->flows.begin(), this->flows.end(), [](Flow f1, Flow f2) {
     return f1.totalWeight < f2.totalWeight;
   });
 }
 
-void Cortex::reroute(Flow* f, std::tuple<int, int> edge){
+void Cortex::reroute(Flow* f, std::tuple<int, int> edge){ //finds new paths for flows
   Network tempNet(this->network);
   int src, dst;
   std::tie(src, dst) = edge;
@@ -16,9 +17,9 @@ void Cortex::reroute(Flow* f, std::tuple<int, int> edge){
   f->path = this->adaptor.getFlow(tempNet, f->startNodeID, f->endNodeID);
 }
 
-void Cortex::initializeSimulation(Network* n, IPathAdaptor a, int fCap) {
-  if (!this->flowCount.empty()) this->flowCount.clear();
-  if (!this->flowMap.empty()) this->flowMap.clear();
+void Cortex::initializeSimulation(Network* n, IPathAdaptor a, int fCap) { //initializes simulation vars
+  if (!this->flowCount.empty()) this->flowCount.clear(); //clears flowCount from previous sims
+  if (!this->flowMap.empty()) this->flowMap.clear(); //clears flowMap from previous sims
   this->network = n;
   this->adaptor = a;
   Factory(network, adaptor);
@@ -27,48 +28,50 @@ void Cortex::initializeSimulation(Network* n, IPathAdaptor a, int fCap) {
 }
 
 
-void Cortex::simulate(vector<Flow> v){
-  vector<Flow> rerouted;
+void Cortex::simulate(vector<Flow> v){ //simulates
+  vector<Flow> rerouted; //sets up vector of flows to route after the main simulation
 
-  for(int i = 0; i < v.size(); i++) {
+  for(int i = 0; i < v.size(); i++) { //sets up hash map to keep track where each flow is in its path
     this->flowCount[v[i].flowID] = 0;
   }
 
-  int iter = 0;
+  int iter = 0; //counts current iteration of simulation, used for starting flows
+  //at their release time
 
-  while(!v.empty()) {
-    for(int i = 0; i < v.size(); i++) {
-      if(v[i].releaseTime <= iter){
+  while(!v.empty()) { //while there are flows
+    for(int i = 0; i < v.size(); i++) { //for all flows
+      if(v[i].releaseTime <= iter){ //if they have been released
 
-        if(currPathPos + 1 < v[i].path.size()) {
-          int currPathPos = flowCount[v[i].id];
+        if(currPathPos + 1 < v[i].path.size()) { //if they are still being simulated
+          int currPathPos = flowCount[v[i].id]; //finds where they are on their path
           auto currEdge = std::make_tuple(v[i].path[currPathPos],
-            v[i].path[currPathPos + 1]);
+            v[i].path[currPathPos + 1]); //current edge the flow is on
 
             if(this->flowMap.count(currEdge) < this->Network.getWeight(std::get<0>(currEdge),
             std::get<1>(currEdge)) + 1) {
-              this->flowMap[currEdge] = &(v[i]);
+              this->flowMap[currEdge] = &(v[i]); //puts flow on map if there is enough bandwidth for it
             }
 
             else {
               std::cout << "Collision found" << std::endl;
-              reroute(&flows[i], currEdge);
-              this->flowCount[v[i].flowID] = 0;
-              v[i].numReroutes++;
+              reroute(&flows[i], currEdge); //gives the flow a new path
+              this->flowCount[v[i].flowID] = 0; //resets the positon on path
+              v[i].numReroutes++; //obv
+              v[i].releaseTime = 0; //so that doesn't have to deal with release time on reroute
               rerouted.push_back(v[i]);
               v.erase(v.begin() + i);
             }
 
-            v[i].finalTime++;
+            v[i].finalTime++; //obv
 
             if(!rerouted.empty()){
-              for(auto flow: rerouted) { flow.waitTime++; };
+              for(auto flow: rerouted) { flow.waitTime++; }; //increases rerouted flows wait time until they are put onto network
             }
           }
 
           else {
             std::cout << "This flow has ended" << std::endl;
-            this->finishedFlows.push_back(v[i]);
+            this->finishedFlows.push_back(v[i]); //this is where we pull our finished flows from for data
             v.erase(v.begin() + i);
           }
         }
@@ -76,13 +79,13 @@ void Cortex::simulate(vector<Flow> v){
     }
     iter++;
 
-    if(!rerouted.empty()) simulate(rerouted);
+    if(!rerouted.empty()) simulate(rerouted); //reruns any flows that were stopped
 }
 
-void Cortex::startSimulation() {
+void Cortex::startSimulation() { //starts the simulation
   simulate(this->flows);
 }
 
 void Cortex::outputSimulation(){
-
+  //todo (Andrew): make csv dump
 }
