@@ -1,9 +1,11 @@
 #include "IPathAdaptor.hpp"
 #include <vector>
+#include <algorithm>
 
-public class DijkstraAdaptor extends IPathAdaptor
+class DijkstraAdaptor : public IPathAdaptor
 {
     public:
-        DijkstraAdaptor();
-        std::vector<int> getFlow(Network* net, int start, int end);
-}
+      DijkstraAdaptor();
+      std::vector<int> getFlow(Network* net, int start, int end);
+      int chooseNextNode(std::vector<std::tuple<int, int> > weights, std::vector<int> visited);
+};
