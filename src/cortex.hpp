@@ -20,11 +20,12 @@ class Cortex{
     void sortFlows();
     void reroute(Flow* f, std::tuple<int, int> edge);
     void simulate(std::vector<Flow> v);
+    int hash(std::tuple<int, int> t);
 
   public:
     std::vector<Flow> flows;
     std::vector<Flow> finishedFlows;
-    std::unordered_map< std::tuple<int, int>, std::vector<Flow* > > flowMap;
+    std::unordered_map<int, std::vector<Flow*> > flowMap;
     std::unordered_map<int, int> flowCount;
     Network* network;
 

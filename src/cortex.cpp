@@ -3,6 +3,12 @@
 Cortex::Cortex(){} //default constructor. all the stuff actually gets handled in
 //initializeSimulation
 
+int Cortex::hash(std::tuple<int, int> t){
+  int a, b;
+  std::tie(a, b) = t;
+  return a + 0x9e3779b9 + (b<<6) + (b>>2); //fuck c++
+}
+
 void Cortex::sortFlows() { //magic lambda bullshit to sort flows
   std::sort(this->flows.begin(), this->flows.end(), [](Flow f1, Flow f2) {
     return f1.totalWeight < f2.totalWeight;
@@ -41,16 +47,15 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
   while(!v.empty()) { //while there are flows
     for(int i = 0; i < v.size(); i++) { //for all flows
       if(v[i].releaseTime <= iter){ //if they have been released
-
-        // TODO: wtf is currPathPos? declare it
+        int currPathPos = flowCount[tempFlows[i].id];
         if(currPathPos + 1 < v[i].path.size()) { //if they are still being simulated
           int currPathPos = flowCount[v[i].flowID]; //finds where they are on their path
           auto currEdge = std::make_tuple(v[i].path[currPathPos],
             v[i].path[currPathPos + 1]); //current edge the flow is on
 
-            if(this->flowMap.count(currEdge) < this->network->getWeight(std::get<0>(currEdge),
+            if(this->flowMap.count(hash(currEdge)) < this->network->getWeight(std::get<0>(currEdge),
             std::get<1>(currEdge)) + 1) {
-              this->flowMap[currEdge] = &(v[i]); //puts flow on map if there is enough bandwidth for it
+              this->flowMap[hash(currEdge)] = &(v[i]); //puts flow on map if there is enough bandwidth for it
             }
 
             else {
