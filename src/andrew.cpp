@@ -1,15 +1,18 @@
 #include "Network.hpp"
 #include "DijkstraAdaptor.hpp"
 #include "MinHopAdaptor.hpp"
+#include "MaxBandAdaptor.hpp"
 
 int main() {
   Network myNet(20, 20);
   myNet.genNet(10);
 
   DijkstraAdaptor dadapt = DijkstraAdaptor();
-  dadapt.getFlow(&myNet, 0, 14);
+  dadapt.getFlow(&myNet, 0, 17);
   MinHopAdaptor minadapt = MinHopAdaptor();
-  minadapt.getFlow(&myNet, 0, 14);
+  minadapt.getFlow(&myNet, 0, 17);
+  MaxBandAdaptor maxadapt = MaxBandAdaptor();
+  maxadapt.getFlow(&myNet, 0, 17);
   myNet.printEdges();
   std::cout << std::endl;
   myNet.printVerts();
