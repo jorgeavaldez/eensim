@@ -15,8 +15,7 @@
 
 class Cortex{
   private:
-    FlowFactory fFactory;
-    IPathAdaptor* adaptor;
+
     void sortFlows();
     void reroute(Flow* f, std::tuple<int, int> edge);
     void simulate(std::vector<Flow> v);
@@ -25,9 +24,11 @@ class Cortex{
   public:
     std::vector<Flow> flows;
     std::vector<Flow> finishedFlows;
-    std::unordered_map<int, std::vector<Flow*> > flowMap;
+    std::unordered_map<int, Flow*> flowMap;
     std::unordered_map<int, int> flowCount;
     Network* network;
+    FlowFactory* fFactory;
+    IPathAdaptor* adaptor;
 
     Cortex();
     void initializeSimulation(Network* n, IPathAdaptor* adaptor, int fCap = 10000);
