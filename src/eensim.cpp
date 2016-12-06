@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
   // let's generate 10 random networks
   // for (int i = 0; i < 1; i++) {
   Network network(randV(rngeesus), randE(rngeesus));
-  network.genNet(5);
+  network.genNet(1);
   // networks.push_back(n);
   // }
 
@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
   // flows for a simulation
   // for (int i = 0; i < networks.size(); i++) {
   std::cout << "Simulation starting up..." << std::endl;
-  sim.initializeSimulation(network, pathAdaptor, 10000);
+  sim.initializeSimulation(network, pathAdaptor, 100000);
   std::cout << "Simulation initialzied." << std::endl;
   sim.startSimulation();
   std::cout << "Simulation completed" << std::endl;
