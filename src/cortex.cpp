@@ -37,7 +37,7 @@ void Cortex::initializeSimulation(Network* n, IPathAdaptor* adaptor, int fCap) {
 void Cortex::simulate(std::vector<Flow> v){ //simulates
   std::vector<Flow> rerouted; //sets up vector of flows to route after the main simulation
 
-  for(int i = 0; i < v.size(); i++) { //sets up hash map to keep track where each flow is in its path
+  for(size_t i = 0; i < v.size(); i++) { //sets up hash map to keep track where each flow is in its path
     this->flowCount[v[i].flowID] = 0;
   }
 
@@ -45,7 +45,7 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
   //at their release time
 
   while(!v.empty()) { //while there are flows
-    for(int i = 0; i < v.size(); i++) { //for all flows
+    for(size_t i = 0; i < v.size(); i++) { //for all flows
       if(v[i].releaseTime <= iter){ //if they have been released
         int currPathPos = flowCount[v[i].flowID];
         if(currPathPos + 1 < v[i].path.size()) { //if they are still being simulated

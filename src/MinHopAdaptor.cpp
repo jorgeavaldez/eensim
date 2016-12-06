@@ -12,8 +12,8 @@ std::vector<int> MinHopAdaptor::getFlow(Network* net, int start, int end)
   //for each node
   //all values are initially assigned to <node ID, cost to A>
   std::vector<std::tuple<int,int> > weights;
-  int vertAmt = net->listVerts().size();
-  for(int a = 0; a < vertAmt; a++)
+  size_t vertAmt = net->listVerts().size();
+  for(size_t a = 0; a < vertAmt; a++)
   {
     weights.push_back(std::tuple<int,int>(a,INT_MAX));
   }
@@ -50,7 +50,7 @@ std::vector<int> MinHopAdaptor::getFlow(Network* net, int start, int end)
     //this shit is fucked up, were not doing comparisons here
     //just updating
     
-    for(int i = 0; i < connectedVerts.size(); i++)
+    for(size_t i = 0; i < connectedVerts.size(); i++)
     {
     //  std::cout << "Neighbor " << i << " of " << cur << ":: " <<  std::get<1>(weights[connectedVerts[i]]) << std::endl;
     //  std::cout << "Neighbor " << i << " weight " << net->getWeight(cur, connectedVerts[i]) << std::endl;
@@ -75,7 +75,7 @@ std::vector<int> MinHopAdaptor::getFlow(Network* net, int start, int end)
     //shortestPath.push_back(min_node);
     
   }
-  for(int x = 0; x < weights.size(); x++)
+  for(size_t x = 0; x < weights.size(); x++)
   {
     std::cout<< x << "Node: " <<  std::get<0>(weights[x]) << " weight =  " << std::get<1>(weights[x]) << std::endl;
   }
@@ -86,7 +86,7 @@ std::vector<int> MinHopAdaptor::getFlow(Network* net, int start, int end)
   int tempNodeID;
   while(bCur != start)
   {
-    for(int b = 0; b < net->getConnectedVerts(bCur).size(); b++)
+    for(size_t b = 0; b < net->getConnectedVerts(bCur).size(); b++)
     {
       if(std::get<1>(weights[net->getConnectedVerts(bCur)[b]]) < cheapestNeighborWeight )
       {
@@ -99,7 +99,7 @@ std::vector<int> MinHopAdaptor::getFlow(Network* net, int start, int end)
   }
   shortestPath.insert(shortestPath.begin(), start);
 
-  for(int c = 0; c < shortestPath.size(); c++)
+  for(size_t c = 0; c < shortestPath.size(); c++)
   {
     std::cout << " " << shortestPath[c] << " ";
   }
@@ -118,7 +118,7 @@ int MinHopAdaptor::chooseNextNode(std::vector<std::tuple<int, int> > weights, st
    int min = INT_MAX;
    //bool isLessThanMin;
    //bool inVisited;
-   for(int i = 0; i < numNodes; i++)
+   for(size_t i = 0; i < numNodes; i++)
    {
       
       //if i has not been visited and is less than the current minimum,
