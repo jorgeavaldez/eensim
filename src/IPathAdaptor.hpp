@@ -6,7 +6,7 @@
 
 class IPathAdaptor{
   public:
-    IPathAdaptor(){}
+    IPathAdaptor() {};
     //IPathAdaptor(Network* n, Node* startNode, Node* endNode);
 
     virtual std::vector<int> getFlow(Network*, int, int) = 0;
