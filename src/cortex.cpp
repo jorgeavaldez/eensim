@@ -16,10 +16,10 @@ void Cortex::sortFlows() { //magic lambda bullshit to sort flows
 }
 
 void Cortex::reroute(Flow* f, std::tuple<int, int> edge){ //finds new paths for flows
-  Network tempNet(*(this->network));
+  Network* tempNet = new Network(*(this->network));
   int src, dst;
   std::tie(src, dst) = edge;
-  tempNet.labelEdge(src, dst, std::numeric_limits<int>::max());
+  tempNet->labelEdge(src, dst, std::numeric_limits<int>::max());
   f->path = this->adaptor->getFlow(tempNet, f->startNodeID, f->endNodeID);
 }
 
@@ -47,7 +47,7 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
   while(!v.empty()) { //while there are flows
     for(int i = 0; i < v.size(); i++) { //for all flows
       if(v[i].releaseTime <= iter){ //if they have been released
-        int currPathPos = flowCount[tempFlows[i].id];
+        int currPathPos = flowCount[v[i].flowID];
         if(currPathPos + 1 < v[i].path.size()) { //if they are still being simulated
           int currPathPos = flowCount[v[i].flowID]; //finds where they are on their path
           auto currEdge = std::make_tuple(v[i].path[currPathPos],
@@ -55,7 +55,7 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
 
             if(this->flowMap.count(hash(currEdge)) < this->network->getWeight(std::get<0>(currEdge),
             std::get<1>(currEdge)) + 1) {
-              this->flowMap[hash(currEdge)] = &(v[i]); //puts flow on map if there is enough bandwidth for it
+              this->flowMap[hash(currEdge)] = &(v[i]);
             }
 
             else {
@@ -86,7 +86,7 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
     iter++;
 
     if(!rerouted.empty()) simulate(rerouted); //reruns any flows that were stopped
-}
+  }
 
 void Cortex::startSimulation() { //starts the simulation
   simulate(this->flows);
