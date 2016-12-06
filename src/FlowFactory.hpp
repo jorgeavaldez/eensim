@@ -9,7 +9,7 @@
 class FlowFactory {
   public:
     static int flowCount;
-    const static int flowCap;
+    static int flowCap;
 
     static int sourceNodeId;
     static int endNodeId;

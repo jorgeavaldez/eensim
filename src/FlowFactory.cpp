@@ -53,7 +53,7 @@ void FlowFactory::setPathAdaptor(IPathAdaptor* adaptor) {
 Flow FlowFactory::initializeFlow(int rTime, int nPackets){
   int srcNode;
   int dstNode;
-  
+
   if (this->sourceNodeId == -1 && this->sourceNodeId == -1){
     srcNode = net->randVert();
   }
@@ -66,7 +66,7 @@ Flow FlowFactory::initializeFlow(int rTime, int nPackets){
   // weights and set f.totalWeight to the cumulative sum
   Flow f(flowCount, 0, nPackets, srcNode, dstNode);
 
-  f.path = this->pathGenerator(this->net, srcNode, dstNode);
+  f.path = this->pathGenerator->getFlow(this->net, srcNode, dstNode);
 
   return f;
 }
