@@ -41,6 +41,7 @@ std::vector<Flow> FlowFactory::getFlowList(int rTimeUB, int nPacketUB, int nFlow
 
   for(int i = 0; i < nFlows; i++){
     Flow tempF = initializeFlow(0, nPDist(this->rngeesus));
+    tempF.flowID = i;
     outVec.push_back(tempF);
   }
   return outVec;

@@ -19,8 +19,8 @@ class Cortex{
     //IPathAdaptor* adaptor;
     MinHopAdaptor adaptor;
     // void sortFlows();
-    void reroute(Flow* f, std::tuple<int, int> edge);
-    void simulate(std::vector<Flow>& v);
+    void reroute(Flow& f, std::tuple<int, int> edge);
+    void simulate(std::vector<Flow> v);
     int hash(std::tuple<int, int> t);
 
   public:
