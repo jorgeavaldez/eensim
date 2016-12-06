@@ -46,14 +46,16 @@ std::vector<Flow> FlowFactory::getFlowList(int rTimeUB, int nPacketUB, int nFlow
   return outVec;
 }
 
-void FlowFactory::setPathAdaptor(IPathAdaptor adaptor) {
+void FlowFactory::setPathAdaptor(IPathAdaptor* adaptor) {
   this->pathGenerator = adaptor;
 }
 
 Flow FlowFactory::initializeFlow(int rTime, int nPackets){
+  int srcNode;
+  int dstNode;
+  
   if (this->sourceNodeId == -1 && this->sourceNodeId == -1){
-    int srcNode = net->randVert();
-    int dstNode;
+    srcNode = net->randVert();
   }
 
   while(srcNode == dstNode)
