@@ -3,7 +3,7 @@
 // default constructor is here to make compiler happy :-)
 FlowFactory::FlowFactory(){}
 
-FlowFactory::FlowFactory(Network* n, int fCap){
+FlowFactory::FlowFactory(Network n, int fCap){
   this->flowCap = fCap;
   this->net = n;
   this->rngeesus.seed(std::random_device()());
@@ -12,7 +12,7 @@ FlowFactory::FlowFactory(Network* n, int fCap){
   this->endNodeId = -1;
 }
 
-FlowFactory::FlowFactory(Network* n, IPathAdaptor* adaptor, int fCap){
+FlowFactory::FlowFactory(Network n, MinHopAdaptor adaptor, int fCap){
   this->flowCap = fCap;
   this->net = n;
   this->rngeesus.seed(std::random_device()());
@@ -46,27 +46,27 @@ std::vector<Flow> FlowFactory::getFlowList(int rTimeUB, int nPacketUB, int nFlow
   return outVec;
 }
 
-void FlowFactory::setPathAdaptor(IPathAdaptor* adaptor) {
-  this->pathGenerator = adaptor;
-}
+// void FlowFactory::setPathAdaptor(MinHopAdaptor adaptor) {
+//   this->pathGenerator = adaptor;
+// }
 
 Flow FlowFactory::initializeFlow(int rTime, int nPackets){
   int srcNode;
   int dstNode;
-  
+
   if (this->sourceNodeId == -1 && this->sourceNodeId == -1){
-    srcNode = net->randVert();
+    srcNode = this->net.randVert();
   }
 
   while(srcNode == dstNode)
-    dstNode = net->randVert();
+    dstNode = this->net.randVert();
 
   // add the path as a vector of int at the end
   // that should come from the path adaptor, then we can sum up the cumulative
   // weights and set f.totalWeight to the cumulative sum
   Flow f(flowCount, 0, nPackets, srcNode, dstNode);
 
-  f.path = this->pathGenerator->getFlow(this->net, srcNode, dstNode);
+  f.path = this->pathGenerator.getFlow(this->net, srcNode, dstNode);
 
   return f;
 }

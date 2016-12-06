@@ -1,23 +1,24 @@
 #ifndef _CORTEX_HPP
 #define _CORTEX_HPP
 
-#include <list>
 #include <unordered_map>
 #include <algorithm>
 #include <iostream>
 #include <tuple>
 #include <limits>
+#include <string>
 
 #include "FlowFactory.hpp"
 #include "Flow.hpp"
 #include "Network.hpp"
-#include "IPathAdaptor.hpp"
+#include "MinHopAdaptor.hpp"
 
 class Cortex{
   private:
     FlowFactory fFactory;
-    IPathAdaptor* adaptor;
-    void sortFlows();
+    //IPathAdaptor* adaptor;
+    MinHopAdaptor adaptor;
+    // void sortFlows();
     void reroute(Flow* f, std::tuple<int, int> edge);
     void simulate(std::vector<Flow> v);
     int hash(std::tuple<int, int> t);
@@ -27,10 +28,10 @@ class Cortex{
     std::vector<Flow> finishedFlows;
     std::unordered_map<int, Flow*> flowMap;
     std::unordered_map<int, int> flowCount;
-    Network* network;
+    Network network;
 
     Cortex();
-    void initializeSimulation(Network* n, IPathAdaptor* adaptor, int fCap = 10000);
+    void initializeSimulation(Network n, MinHopAdaptor adaptor, int fCap = 10000);
     void startSimulation();
     void outputSimulation(std::ostream& os);
 };

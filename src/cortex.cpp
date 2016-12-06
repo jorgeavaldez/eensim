@@ -9,28 +9,28 @@ int Cortex::hash(std::tuple<int, int> t){
   return a + 0x9e3779b9 + (b<<6) + (b>>2); //fuck c++
 }
 
-void Cortex::sortFlows() { //magic lambda bullshit to sort flows
-  std::sort(this->flows.begin(), this->flows.end(), [](Flow f1, Flow f2) {
-    return f1.totalWeight < f2.totalWeight;
-  });
-}
+// void Cortex::sortFlows() { //magic lambda bullshit to sort flows
+//   std::sort(this->flows.begin(), this->flows.end(), [](Flow f1, Flow f2) {
+//     return f1.totalWeight < f2.totalWeight;
+//   });
+// }
 
 void Cortex::reroute(Flow* f, std::tuple<int, int> edge){ //finds new paths for flows
-  Network* tempNet = new Network(*(this->network));
+  Network tempNet(this->network);
   int src, dst;
   std::tie(src, dst) = edge;
-  tempNet->labelEdge(src, dst, std::numeric_limits<int>::max());
-  f->path = this->adaptor->getFlow(tempNet, f->startNodeID, f->endNodeID);
+  tempNet.labelEdge(src, dst, std::numeric_limits<int>::max());
+  f->path = this->adaptor.getFlow(tempNet, f->startNodeID, f->endNodeID);
 }
 
-void Cortex::initializeSimulation(Network* n, IPathAdaptor* a, int fCap) { //initializes simulation vars
+void Cortex::initializeSimulation(Network n, MinHopAdaptor a, int fCap) { //initializes simulation vars
   if (!this->flowCount.empty()) this->flowCount.clear(); //clears flowCount from previous sims
   if (!this->flowMap.empty()) this->flowMap.clear(); //clears flowMap from previous sims
   this->network = n;
   this->adaptor = a;
   fFactory = FlowFactory(network, adaptor);
   this->flows = fFactory.getFlowList(0, 1, fCap);
-  sortFlows();
+  // sortFlows();
 }
 
 
@@ -53,7 +53,7 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
           auto currEdge = std::make_tuple(v[i].path[currPathPos],
             v[i].path[currPathPos + 1]); //current edge the flow is on
 
-            if(this->flowMap.count(hash(currEdge)) < this->network->getWeight(std::get<0>(currEdge),
+            if(this->flowMap.count(hash(currEdge)) < this->network.getWeight(std::get<0>(currEdge),
             std::get<1>(currEdge)) + 1) {
               this->flowMap[hash(currEdge)] = &(v[i]);
             }
