@@ -18,15 +18,13 @@ public:
    std::vector<int> path;
 
    Flow(){};
-   Flow(int id, int releaseT, int numPacks, int startID, int endID,
-     std::vector<int> p) {
+   Flow(int id, int releaseT, int numPacks, int startID, int endID) {
      //inputs
      flowID = id;
      releaseTime = releaseT;
      numPackets = numPacks;
      startNodeID = startID;
      endNodeID = endID;
-     path = p;
 
      //initialize everything else to 0 cuz im tired
      numReroutes = 0;

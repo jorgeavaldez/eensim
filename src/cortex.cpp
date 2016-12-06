@@ -36,16 +36,6 @@ void Cortex::initializeSimulation(Network* n, IPathAdaptor* adaptor, int fCap) {
 
 void Cortex::simulate(std::vector<Flow> v){ //simulates
   std::vector<Flow> rerouted; //sets up vector of flows to route after the main simulation
-<<<<<<< HEAD
-  
-  for(int i = 0; i < v.size(); i++) { //sets up hash map to keep track where each flow is in its path
-    this->flowCount[v[i].flowID] = 0;
-  }
-  
-  int iter = 0; //counts current iteration of simulation, used for starting flows
-  //at their release time
-  
-=======
 
   for(int i = 0; i < v.size(); i++) { //sets up hash map to keep track where each flow is in its path
     this->flowCount[v[i].flowID] = 0;
@@ -54,7 +44,6 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
   int iter = 0; //counts current iteration of simulation, used for starting flows
   //at their release time
 
->>>>>>> 80d694b188b07a188f3a9849f9405ada8bce780c
   while(!v.empty()) { //while there are flows
     for(int i = 0; i < v.size(); i++) { //for all flows
       if(v[i].releaseTime <= iter){ //if they have been released
@@ -63,20 +52,12 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
           int currPathPos = flowCount[v[i].flowID]; //finds where they are on their path
           auto currEdge = std::make_tuple(v[i].path[currPathPos],
             v[i].path[currPathPos + 1]); //current edge the flow is on
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 80d694b188b07a188f3a9849f9405ada8bce780c
             if(this->flowMap.count(hash(currEdge)) < this->network->getWeight(std::get<0>(currEdge),
             std::get<1>(currEdge)) + 1) {
               this->flowMap[hash(currEdge)] = &(v[i]);
             }
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 80d694b188b07a188f3a9849f9405ada8bce780c
             else {
               std::cout << "Collision found" << std::endl;
               reroute(&flows[i], currEdge); //gives the flow a new path
@@ -86,24 +67,14 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
               rerouted.push_back(v[i]);
               v.erase(v.begin() + i);
             }
-<<<<<<< HEAD
-  
-            v[i].finalTime++; //obv
-  
-=======
 
             v[i].finalTime++; //obv
 
->>>>>>> 80d694b188b07a188f3a9849f9405ada8bce780c
             if(!rerouted.empty()){
               for(auto flow: rerouted) { flow.waitTime++; }; //increases rerouted flows wait time until they are put onto network
             }
           }
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 80d694b188b07a188f3a9849f9405ada8bce780c
           else {
             std::cout << "This flow has ended" << std::endl;
             this->finishedFlows.push_back(v[i]); //this is where we pull our finished flows from for data
@@ -113,11 +84,7 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
       }
     }
     iter++;
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 80d694b188b07a188f3a9849f9405ada8bce780c
     if(!rerouted.empty()) simulate(rerouted); //reruns any flows that were stopped
   }
 
