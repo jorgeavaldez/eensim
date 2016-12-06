@@ -20,7 +20,7 @@ void Cortex::reroute(Flow* f, std::tuple<int, int> edge){ //finds new paths for 
   int src, dst;
   std::tie(src, dst) = edge;
   tempNet.labelEdge(src, dst, std::numeric_limits<int>::max());
-  f->path = this->adaptor->getFlow(*tempNet, f->startNodeID, f->endNodeID);
+  f->path = this->adaptor->getFlow(tempNet, f->startNodeID, f->endNodeID);
 }
 
 void Cortex::initializeSimulation(Network* n, IPathAdaptor* a, int fCap) { //initializes simulation vars
