@@ -47,7 +47,6 @@ std::vector<int> MinHopAdaptor::getFlow(Network* net, int start, int end)
     //get all the neighbors of the current node
     connectedVerts = net->getConnectedVerts(cur);
 
-    //this shit is fucked up, were not doing comparisons here
     //just updating
 
     for(int i = 0; i < connectedVerts.size(); i++)

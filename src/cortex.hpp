@@ -11,7 +11,6 @@
 
 #include "FlowFactory.hpp"
 #include "Flow.hpp"
-#include "Network.hpp"
 #include "IPathAdaptor.hpp"
 
 class Cortex{
