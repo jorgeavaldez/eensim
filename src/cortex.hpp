@@ -7,6 +7,7 @@
 #include <iostream>
 #include <tuple>
 #include <limits>
+#include <vector>
 
 #include "FlowFactory.hpp"
 #include "Flow.hpp"

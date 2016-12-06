@@ -1,0 +1,1 @@
+clang -std=c++11 -O3 -DNDEBUG -DNOMP -o src/eensim src/eensim.cpp src/Network.cpp  src/MinHopAdaptor.cpp src/cortex.cpp ../Snap-3.0/snap-core/Snap.o -I../Snap-3.0/snap-core -I../Snap-3.0/snap-adv -I../Snap-3.0/glib-core -I../Snap-3.0/snap-exp

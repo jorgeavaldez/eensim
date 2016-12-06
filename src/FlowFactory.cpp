@@ -12,7 +12,7 @@ FlowFactory::FlowFactory(Network* n, int fCap){
   this->endNodeId = -1;
 }
 
-FlowFactory::FlowFactory(Network* n, IPathAdaptor adaptor, int fCap){
+FlowFactory::FlowFactory(Network* n, IPathAdaptor* adaptor, int fCap){
   this->flowCap = fCap;
   this->net = n;
   this->rngeesus.seed(std::random_device()());

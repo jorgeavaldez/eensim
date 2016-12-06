@@ -1,9 +1,8 @@
 #ifndef _IPATHADAPTOR_HPP
 #define _IPATHADAPTOR_HPP
 
-#include "Flow.hpp"
 #include "Network.hpp"
-#include <vector> 
+#include <vector>
 
 class IPathAdaptor{
   public:
