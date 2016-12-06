@@ -4,3 +4,5 @@ obj/*.o
 bin/*
 src/*.gch
 src/graph/*.gch
+*.dot
+*.gif
