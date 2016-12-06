@@ -3,6 +3,7 @@
 #include "MinHopAdaptor.hpp"
 
 #include <random>
+#include <fstream>
 
 int main(int argc, char* argv[]) {
   // std::vector<Network> networks;
@@ -22,15 +23,19 @@ int main(int argc, char* argv[]) {
   Cortex sim;
   MinHopAdaptor pathAdaptor;
 
+  std::ofstream ofile;
+  ofile.open("dump.txt");
+
   // basically, we can change the pathAdaptor, the network sets, and number of
   // flows for a simulation
   // for (int i = 0; i < networks.size(); i++) {
   std::cout << "Simulation starting up..." << std::endl;
-  sim.initializeSimulation(network, pathAdaptor, 10);
+  sim.initializeSimulation(network, pathAdaptor, 10000);
   std::cout << "Simulation initialzied." << std::endl;
   sim.startSimulation();
   std::cout << "Simulation completed" << std::endl;
-  sim.outputSimulation(std::cout);
+  sim.outputSimulation(ofile);
+  ofile.close();
   // }
 
   return 0;

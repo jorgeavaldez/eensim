@@ -60,7 +60,7 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
             }
             else
             {
-              // std::cout << "Collision found" << std::endl;
+              std::cout << "Collision found" << std::endl;
               reroute(flows[i], currEdge); //gives the flow a new path
               this->flowCount[v[i].flowID] = 0; //resets the positon on path
               v[i].numReroutes++; //obv
@@ -70,6 +70,7 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
             }
 
             v[i].finalTime += 1; //obv
+            std::cout << "Finaltime " <<  v[i].finalTime << std::endl;
             if(!rerouted.empty()){
               for(auto flow: rerouted) { flow.waitTime++; }; //increases rerouted flows wait time until they are put onto network
             }
@@ -98,7 +99,7 @@ void Cortex::outputSimulation(std::ostream& os){
   os << "FlowID,releaseTime,finalTime,waitTime,numReroutes,startNodeID,endNodeID,slowdown" << std::endl;
   for(auto f : finishedFlows){
     f.slowdown = (f.finalTime + f.waitTime) / f.numPackets;
-    os << f.flowID << "," << f.releaseTime << "," << f.waitTime << "," << f.numReroutes;
+    os << f.flowID << "," << f.releaseTime << "," << f.finalTime << ","<< f.waitTime << "," << f.numReroutes;
     os << "," << f.startNodeID << "," << f.endNodeID << "," << f.slowdown << std::endl;
   }
 }
