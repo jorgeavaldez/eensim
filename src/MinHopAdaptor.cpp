@@ -1,6 +1,6 @@
 #include "MinHopAdaptor.hpp"
 
-std::vector<int> MinHopAdaptor::getFlow(Network* net, int start, int end)
+std::vector<int> MinHopAdaptor::getFlow(Network net, int start, int end)
 {
   std::vector<int> shortestPath;
   //visited set. Initially empty. Should be full at finish
@@ -10,7 +10,7 @@ std::vector<int> MinHopAdaptor::getFlow(Network* net, int start, int end)
   //for each node
   //all values are initially assigned to <node ID, cost to A>
   std::vector<std::tuple<int,int> > weights;
-  int vertAmt = net->listVerts().size();
+  int vertAmt = net.listVerts().size();
   for(int a = 0; a < vertAmt; a++)
   {
     weights.push_back(std::tuple<int,int>(a,INT_MAX));
@@ -34,23 +34,24 @@ std::vector<int> MinHopAdaptor::getFlow(Network* net, int start, int end)
     //here we should be choosing the next node*****
     cur = chooseNextNode(weights, visited);
 
-    std::cout << "CURRRRRR" << cur << std::endl;
+    //std::cout << "CURRRRRR" << cur << std::endl;
 
     if(std::get<1>(weights[cur]) == INT_MAX)
     {
-        std::cout << "Node " << cur << " may not be connected to " << start << std::endl;
+        //std::cout << "Node " << cur << " may not be connected to " << start << std::endl;
         visited.push_back(cur);
         continue;
     }
     //get all the neighbors of the current node
-    connectedVerts = net->getConnectedVerts(cur);
+    connectedVerts = net.getConnectedVerts(cur);
 
+    //this shit is fucked up, were not doing comparisons here
     //just updating
 
     for(int i = 0; i < connectedVerts.size(); i++)
     {
     //  std::cout << "Neighbor " << i << " of " << cur << ":: " <<  std::get<1>(weights[connectedVerts[i]]) << std::endl;
-    //  std::cout << "Neighbor " << i << " weight " << net->getWeight(cur, connectedVerts[i]) << std::endl;
+    //  std::cout << "Neighbor " << i << " weight " << net.getWeight(cur, connectedVerts[i]) << std::endl;
       temp = std::get<1>(weights[cur]) + 1;
       if(temp < std::get<1>(weights[connectedVerts[i]]))
       {
@@ -65,30 +66,30 @@ std::vector<int> MinHopAdaptor::getFlow(Network* net, int start, int end)
     //at the end of the loop push the
     visited.push_back(cur);
 
-    std::cout << "VISITED: ";
-    for(size_t i = 0; i < visited.size();i++)
-    	std::cout << " " << visited[i];
-    std::cout << std::endl;
+    //std::cout << "VISITED: ";
+    // for(size_t i = 0; i < visited.size();i++)
+    // 	std::cout << " " << visited[i];
+    // std::cout << std::endl;
     //shortestPath.push_back(min_node);
 
   }
-  for(int x = 0; x < weights.size(); x++)
-  {
-    std::cout<< x << "Node: " <<  std::get<0>(weights[x]) << " weight =  " << std::get<1>(weights[x]) << std::endl;
-  }
-
-  std::cout << "SHORTEST PATH ";
+  // for(int x = 0; x < weights.size(); x++)
+  // {
+  //   std::cout<< x << "Node: " <<  std::get<0>(weights[x]) << " weight =  " << std::get<1>(weights[x]) << std::endl;
+  // }
+  //
+  //std::cout << "SHORTEST PATH ";
   int cheapestNeighborWeight = INT_MAX;
   int bCur = end;
   int tempNodeID;
   while(bCur != start)
   {
-    for(int b = 0; b < net->getConnectedVerts(bCur).size(); b++)
+    for(int b = 0; b < net.getConnectedVerts(bCur).size(); b++)
     {
-      if(std::get<1>(weights[net->getConnectedVerts(bCur)[b]]) < cheapestNeighborWeight )
+      if(std::get<1>(weights[net.getConnectedVerts(bCur)[b]]) < cheapestNeighborWeight )
       {
-        cheapestNeighborWeight = std::get<1>(weights[net->getConnectedVerts(bCur)[b]]);
-        tempNodeID = net->getConnectedVerts(bCur)[b];
+        cheapestNeighborWeight = std::get<1>(weights[net.getConnectedVerts(bCur)[b]]);
+        tempNodeID = net.getConnectedVerts(bCur)[b];
       }
     }
     shortestPath.insert(shortestPath.begin(), bCur);
@@ -125,7 +126,7 @@ int MinHopAdaptor::chooseNextNode(std::vector<std::tuple<int, int> > weights, st
       if(std::get<1>(weights[i]) <= min && !(std::find(visited.begin(), visited.end(), i) != visited.end()))
       {
         min = std::get<1>(weights[i]);
-	nextNodeID = i;
+        nextNodeID = i;
        // std::cout << "minInIf" << i << ": " << min << std::endl;
       }
        // std::cout << "minOutIf" << i << ": " << min << std::endl;

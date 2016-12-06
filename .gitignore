@@ -2,7 +2,11 @@
 
 obj/*.o
 bin/*
+
 src/*.gch
 src/graph/*.gch
+src/eensim
+
 *.dot
 *.gif
+*.txt
