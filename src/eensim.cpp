@@ -25,8 +25,11 @@ int main(int argc, char* argv[]) {
   // basically, we can change the pathAdaptor, the network sets, and number of
   // flows for a simulation
   // for (int i = 0; i < networks.size(); i++) {
+  std::cout << "Simulation starting up..." << std::endl;
   sim.initializeSimulation(network, pathAdaptor, 2);
+  std::cout << "Simulation initialzied." << std::endl;
   sim.startSimulation();
+  std::cout << "Simulation completed" << std::endl;
   sim.outputSimulation(std::cout);
   // }
 

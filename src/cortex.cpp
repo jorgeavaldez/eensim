@@ -34,31 +34,38 @@ void Cortex::initializeSimulation(Network n, MinHopAdaptor a, int fCap) { //init
 }
 
 
-void Cortex::simulate(std::vector<Flow> v){ //simulates
+void Cortex::simulate(std::vector<Flow>& v){ //simulates
   std::vector<Flow> rerouted; //sets up vector of flows to route after the main simulation
-
+  
   for(int i = 0; i < v.size(); i++) { //sets up hash map to keep track where each flow is in its path
     this->flowCount[v[i].flowID] = 0;
+    std::cout << "hashing " << i << std::endl;
   }
 
   int iter = 0; //counts current iteration of simulation, used for starting flows
   //at their release time
 
+  std::cout << "Starting loop" << std::endl;  
   while(!v.empty()) { //while there are flows
+    std::cout << "we in the loop now" << std::endl;
     for(int i = 0; i < v.size(); i++) { //for all flows
+      std::cout << "we in the other loop (fo) " << i << std::endl;
       if(v[i].releaseTime <= iter){ //if they have been released
-        int currPathPos = flowCount[v[i].flowID];
+        int currPathPos = flowCount[v[i].flowID];          //finds where they are on their path
+        std::cout << "currPathPos: " << currPathPos << std::endl;
         if(currPathPos + 1 < v[i].path.size()) { //if they are still being simulated
-          int currPathPos = flowCount[v[i].flowID]; //finds where they are on their path
-          auto currEdge = std::make_tuple(v[i].path[currPathPos],
-            v[i].path[currPathPos + 1]); //current edge the flow is on
 
-            if(this->flowMap.count(hash(currEdge)) < this->network.getWeight(std::get<0>(currEdge),
-            std::get<1>(currEdge)) + 1) {
+          std::cout <<"in if currPathPos + 1 < v[i].path.size()" << std::endl;
+          auto currEdge = std::make_tuple(v[i].path[currPathPos], v[i].path[currPathPos + 1]); //current edge the flow is on
+            if(this->flowMap.count(hash(currEdge)) < this->network.getWeight(std::get<0>(currEdge), std::get<1>(currEdge)) + 1) 
+            {
+              std::cout << "in if this->flowMap.count hash < weight" << std::endl;
               this->flowMap[hash(currEdge)] = &(v[i]);
+              this->flowCount[v[i].flowID]++;
+              std::cin.get();
             }
-
-            else {
+            else
+            {
               std::cout << "Collision found" << std::endl;
               reroute(&flows[i], currEdge); //gives the flow a new path
               this->flowCount[v[i].flowID] = 0; //resets the positon on path
@@ -69,7 +76,8 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
             }
 
             v[i].finalTime++; //obv
-
+            std::cout << "finalTime: " << v[i].finalTime << std::endl;
+            std::cin.get();
             if(!rerouted.empty()){
               for(auto flow: rerouted) { flow.waitTime++; }; //increases rerouted flows wait time until they are put onto network
             }
@@ -87,6 +95,7 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
 
     if(!rerouted.empty()) simulate(rerouted); //reruns any flows that were stopped
   }
+  
 
 void Cortex::startSimulation() { //starts the simulation
   simulate(this->flows);
