@@ -41,8 +41,13 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
     this->flowCount[v[i].flowID] = 0;
   }
 
-  for(auto f : this->flows){
-    
+  for(auto e : this->network.listEdges()){
+    int src, dst, band;
+    std::tie(src, dst, band) = e;
+    EdgeState es;
+    es.totalBandwidth = band;
+    es.edgeID = std::make_tuple(src, dst);
+    this->flowMap[hash(es.edgeID)] = es;
   }
 
   int iter = 0; //counts current iteration of simulation, used for starting flows
@@ -58,17 +63,15 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
 
           auto currEdge = std::make_tuple(v[i].path[currPathPos], v[i].path[currPathPos + 1]); //current edge the flow is on
 
-          std::cout << this->flowMap[hash(currEdge)] << std::endl;
-
-            if(this->flowMap.count(hash(currEdge)) < this->network.getWeight(std::get<0>(currEdge), std::get<1>(currEdge)) + 1)
+            if(this->flowMap[hash(currEdge)].flows.size() < this->flowMap[hash(currEdge)].totalBandwidth)
             {
-              this->flowMap[hash(currEdge)] = &(v[i]);
+              this->flowMap[hash(currEdge)].flows.push_back(v[i]);
               this->flowCount[v[i].flowID]++;
             }
             else
             {
               std::cout << "Collision found" << std::endl;
-              reroute(flows[i], currEdge); //gives the flow a new path
+              reroute(v[i], currEdge); //gives the flow a new path
               this->flowCount[v[i].flowID] = 0; //resets the positon on path
               v[i].numReroutes++; //obv
               v[i].releaseTime = 0; //so that doesn't have to deal with release time on reroute
@@ -79,7 +82,7 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
             v[i].finalTime += 1; //obv
             // std::cout << "Finaltime " <<  v[i].finalTime << std::endl;
             if(!rerouted.empty()){
-              for(auto flow: rerouted) { flow.waitTime++; }; //increases rerouted flows wait time until they are put onto network
+              for(auto& flow: rerouted) { flow.waitTime++; }; //increases rerouted flows wait time until they are put onto network
             }
 
           }

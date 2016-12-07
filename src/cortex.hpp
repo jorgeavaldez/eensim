@@ -27,7 +27,7 @@ class Cortex{
   public:
     std::vector<Flow> flows;
     std::vector<Flow> finishedFlows;
-    std::unordered_map<int, Flow* > flowMap;
+    std::unordered_map<int, EdgeState> flowMap;
     std::unordered_map<int, int> flowCount;
     Network network;
 
