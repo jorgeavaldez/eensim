@@ -70,7 +70,7 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
             }
             else
             {
-              std::cout << "Collision found" << std::endl;
+              //std::cout << "Collision found" << std::endl;
               reroute(v[i], currEdge); //gives the flow a new path
               this->flowCount[v[i].flowID] = 0; //resets the positon on path
               v[i].numReroutes++; //obv

@@ -14,8 +14,8 @@ int main(int argc, char* argv[]) {
 
   // let's generate 10 random networks
   // for (int i = 0; i < 1; i++) {
-  Network network(2, 1);
-  network.genNet(1);
+  Network network(100, 250);
+  network.genNet(10);
   // networks.push_back(n);
   // }
 
