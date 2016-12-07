@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
   // flows for a simulation
   // for (int i = 0; i < networks.size(); i++) {
   std::cout << "Simulation starting up..." << std::endl;
-  sim.initializeSimulation(network, pathAdaptor, 1000);
+  sim.initializeSimulation(network, pathAdaptor, 10);
   std::cout << "Simulation initialzied." << std::endl;
   sim.startSimulation();
   std::cout << "Simulation completed" << std::endl;

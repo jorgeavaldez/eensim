@@ -12,6 +12,7 @@
 #include "Flow.hpp"
 #include "Network.hpp"
 #include "MinHopAdaptor.hpp"
+#include "edgestate.hpp"
 
 class Cortex{
   private:
@@ -26,7 +27,7 @@ class Cortex{
   public:
     std::vector<Flow> flows;
     std::vector<Flow> finishedFlows;
-    std::unordered_map<int, Flow*> flowMap;
+    std::unordered_map<int, Flow* > flowMap;
     std::unordered_map<int, int> flowCount;
     Network network;
 
@@ -34,6 +35,7 @@ class Cortex{
     void initializeSimulation(Network n, MinHopAdaptor adaptor, int fCap = 10000);
     void startSimulation();
     void outputSimulation(std::ostream& os);
+
 };
 
 #endif //_CORTEX_HPP

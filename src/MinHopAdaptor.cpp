@@ -97,12 +97,12 @@ std::vector<int> MinHopAdaptor::getFlow(Network net, int start, int end)
   }
   shortestPath.insert(shortestPath.begin(), start);
 
-  for(int c = 0; c < shortestPath.size(); c++)
-  {
-    std::cout << " " << shortestPath[c] << " ";
-  }
-
-  std::cout << std::endl;
+  // for(int c = 0; c < shortestPath.size(); c++)
+  // {
+  //   std::cout << " " << shortestPath[c] << " ";
+  // }
+  //
+  // std::cout << std::endl;
   return shortestPath;
 
   }

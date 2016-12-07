@@ -41,18 +41,25 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
     this->flowCount[v[i].flowID] = 0;
   }
 
+  for(auto f : this->flows){
+    
+  }
+
   int iter = 0; //counts current iteration of simulation, used for starting flows
   //at their release time
   while(!v.empty()) { //while there are flows
 
     for(int i = 0; i < v.size(); i++) { //for all flows
-      std::cout << v[i].flowID << "," << v[i].releaseTime << "," << v[i].waitTime << "," << v[i].numReroutes;
-      std::cout << "," << v[i].startNodeID << "," << v[i].endNodeID << "," << v[i].slowdown << std::endl;
+      //std::cout << v[i].flowID << "," << v[i].releaseTime << "," << v[i].waitTime << "," << v[i].numReroutes;
+      //std::cout << "," << v[i].startNodeID << "," << v[i].endNodeID << "," << v[i].slowdown << std::endl;
       if(v[i].releaseTime <= iter){ //if they have been released
         int currPathPos = flowCount[v[i].flowID];          //finds where they are on their path
         if(currPathPos + 1 < v[i].path.size()) { //if they are still being simulated
 
           auto currEdge = std::make_tuple(v[i].path[currPathPos], v[i].path[currPathPos + 1]); //current edge the flow is on
+
+          std::cout << this->flowMap[hash(currEdge)] << std::endl;
+
             if(this->flowMap.count(hash(currEdge)) < this->network.getWeight(std::get<0>(currEdge), std::get<1>(currEdge)) + 1)
             {
               this->flowMap[hash(currEdge)] = &(v[i]);
@@ -70,7 +77,7 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
             }
 
             v[i].finalTime += 1; //obv
-            std::cout << "Finaltime " <<  v[i].finalTime << std::endl;
+            // std::cout << "Finaltime " <<  v[i].finalTime << std::endl;
             if(!rerouted.empty()){
               for(auto flow: rerouted) { flow.waitTime++; }; //increases rerouted flows wait time until they are put onto network
             }
@@ -78,7 +85,7 @@ void Cortex::simulate(std::vector<Flow> v){ //simulates
           }
 
           else {
-            std::cout << "This flow has ended" << std::endl;
+            // std::cout << "This flow has ended" << std::endl;
             this->finishedFlows.push_back(v[i]); //this is where we pull our finished flows from for data
             v.erase(v.begin() + i);
           }
